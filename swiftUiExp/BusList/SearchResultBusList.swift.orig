@@ -13,6 +13,16 @@ struct SearchResultBusList: View {
     
     var body: some View {
         VStack{
+<<<<<<< HEAD
+            CustomHeaderView()
+                .padding(.top,8)
+//            CustomFilterView()
+            HorizintalFilterView()
+                .padding(.top,16)
+            
+            if viewModel.hasFetchedData {
+                BusListView(viewModel: viewModel)
+=======
             VStack {
                 CustomHeaderView()
                     .padding(.top,8)
@@ -33,6 +43,7 @@ struct SearchResultBusList: View {
                             SortByView()
                         }
                     }
+>>>>>>> bus/filterScreen
             }else {
                 EmptyBusListView()
                     .padding(.top,120)
@@ -87,7 +98,7 @@ struct CustomHeaderView: View {
             .frame(height: 56)
         }
         .frame(height: 56)
-//        .padding(.horizontal,16)
+        .padding(.horizontal,16)
     }
 }
 
@@ -124,6 +135,9 @@ struct CircleWithPencil: View {
     }
 }
 
+<<<<<<< HEAD
+
+=======
 struct CustomFilterView: View {
     @Binding var sortByTapped: Bool
     let rows:[GridItem] = [
@@ -184,6 +198,7 @@ struct CustomFilterView: View {
         }
 }
     
+>>>>>>> bus/filterScreen
 struct BusListView: View {
     
     @ObservedObject var viewModel : BusServiceViewModel

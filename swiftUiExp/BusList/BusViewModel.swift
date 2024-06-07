@@ -52,6 +52,7 @@ class BusServiceViewModel: ObservableObject {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(BusServiceResponse.self, from: data)
                 let busList = response.services
+                print(busList)
               
                 DispatchQueue.main.async {
                     self.busServices = busList

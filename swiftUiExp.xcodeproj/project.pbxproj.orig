@@ -223,8 +223,11 @@
 				FA2523272C12D913008216CB /* HorizontalFilterViewModel.swift in Sources */,
 				03CCA33C2C088C8F0021875D /* ComboSlider.swift in Sources */,
 				03379AF22C1182FC00F10305 /* BusViewModel.swift in Sources */,
+<<<<<<< HEAD
 				FA2523252C12D8EE008216CB /* FilterItemModel.swift in Sources */,
+=======
 				030842A02C12D9FD0013EFD7 /* SortByView.swift in Sources */,
+>>>>>>> bus/filterScreen
 				03379AF52C1182FC00F10305 /* Model.swift in Sources */,
 				FA1FDE282C11B1E900B90FCA /* Coordinator.swift in Sources */,
 			);
