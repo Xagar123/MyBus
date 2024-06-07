@@ -13,25 +13,18 @@ struct SearchResultBusList: View {
     
     var body: some View {
         VStack{
-            VStack {
-                CustomHeaderView()
-                    .padding(.top,8)
-                CustomFilterView()
-                    .padding(.top,16)
-                Spacer()
-            }
-            .frame(height: 128)
-            .padding(.horizontal, 16)
-            .background(Color(hex:"#111111"))
-           
+            CustomHeaderView()
+                .padding(.top,8)
+//            CustomFilterView()
+            HorizintalFilterView()
+                .padding(.top,16)
+            
             if viewModel.hasFetchedData {
-                BusListView()
+                BusListView(viewModel: viewModel)
             }else {
                 EmptyBusListView()
                 .padding(.top,120)
             }
-//            BusListView()
-           
         }
         .background(Color(hex:"#111111"))
     }
@@ -82,11 +75,16 @@ struct CustomHeaderView: View {
             .frame(height: 56)
         }
         .frame(height: 56)
+        .padding(.horizontal,16)
     }
 }
 
 
 struct CircleWithPencil: View {
+    
+    @EnvironmentObject var coordinator: Coordinator
+    @State private var isPresentingModal = false
+    
     var body: some View {
         ZStack {
             Circle()
@@ -99,67 +97,25 @@ struct CircleWithPencil: View {
                 .frame(width: 24, height: 24)
                 .foregroundColor(.white)
         }
+        .onTapGesture {
+            isPresentingModal = true
+//            coordinator.navigate(to: .FilterView)
+           
+        }
+        .sheet(isPresented: $isPresentingModal, content: {
+            FilterFullScreen()
+                .background(Color.clear)
+        })
+        
         .padding(.trailing,0)
         
     }
 }
 
-struct CustomFilterView: View {
-    
-    let rows:[GridItem] = [
-        GridItem(.fixed(40))
-    ]
-    
-    let filterItems: [(image: FilterImage, text: String)] = [
-           (.sort_by, "Sort by"),
-           (.ac, "AC"),
-           (.non_ac, "Non AC"),
-           (.single, "Single"),
-           (.sleeper, "Sleeper")
-       ]
-    
-    var body: some View {
-            HStack(alignment: .top, spacing: 0) {
-                ScrollView(.horizontal) {
-                    LazyHGrid(rows: rows, spacing: 8) {
-                        ForEach(filterItems, id: \.image) { item in
-                            ZStack {
-                                RoundedRectangle(cornerRadius: 40)
-                                    .fill(Color.clear)
-                                    .frame(height: 40)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 40)
-                                            .stroke(Color(hex: "#333333"), lineWidth: 1)
-                                    )
-                                    
-                                HStack {
-                                    Image(item.image.rawValue)
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fit)
-                                        .frame(width: 20, height: 20,alignment: .leading)
-//                                        .background()
-                                        .padding(.leading,-4)
-//                                        .padding()
-                                    Text(item.text)
-                                        .foregroundColor(.white)
-//                                        .font(.system(size: 14))                 .padding(.leading, 8)
-                                      
-                                }
-                                .padding()
-                            }
-                        }
-                        .padding(.leading, 1)
-                    }
-                }
-                .scrollIndicators(.hidden)
-                .frame(height: 40)
-            }
-        }
-}
-    
+
 struct BusListView: View {
     
-    @ObservedObject var viewModel = BusServiceViewModel()
+    @ObservedObject var viewModel : BusServiceViewModel
    
     var body: some View {
         List {
