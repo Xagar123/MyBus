@@ -14,7 +14,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var hasFetchedData = false
     
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-06")
+            availableBusService(source: 3, destination: 5, date: "2024-06-07")
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -52,6 +52,7 @@ class BusServiceViewModel: ObservableObject {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(BusServiceResponse.self, from: data)
                 let busList = response.services
+                print(busList)
               
                 DispatchQueue.main.async {
                     self.busServices = busList

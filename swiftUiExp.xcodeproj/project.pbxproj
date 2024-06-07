@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030842A02C12D9FD0013EFD7 /* SortByView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0308429E2C12D9FD0013EFD7 /* SortByView.swift */; };
 		03379AF12C1182FC00F10305 /* BusListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03379AEB2C1182FC00F10305 /* BusListView.swift */; };
 		03379AF22C1182FC00F10305 /* BusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03379AEC2C1182FC00F10305 /* BusViewModel.swift */; };
 		03379AF32C1182FC00F10305 /* SearchResultBusList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03379AED2C1182FC00F10305 /* SearchResultBusList.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0308429E2C12D9FD0013EFD7 /* SortByView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortByView.swift; sourceTree = "<group>"; };
 		03379AEB2C1182FC00F10305 /* BusListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusListView.swift; sourceTree = "<group>"; };
 		03379AEC2C1182FC00F10305 /* BusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusViewModel.swift; sourceTree = "<group>"; };
 		03379AED2C1182FC00F10305 /* SearchResultBusList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultBusList.swift; sourceTree = "<group>"; };
@@ -44,6 +46,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0308429F2C12D9FD0013EFD7 /* SortByView */ = {
+			isa = PBXGroup;
+			children = (
+				0308429E2C12D9FD0013EFD7 /* SortByView.swift */,
+			);
+			path = SortByView;
+			sourceTree = "<group>";
+		};
 		03379AEA2C1182D400F10305 /* FilterScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +94,7 @@
 		03CDEBE62C0487E7003A075D /* swiftUiExp */ = {
 			isa = PBXGroup;
 			children = (
+				0308429F2C12D9FD0013EFD7 /* SortByView */,
 				03CDEBE72C0487E7003A075D /* swiftUiExpApp.swift */,
 				03379AEA2C1182D400F10305 /* FilterScreen */,
 				03379AF02C1182FC00F10305 /* BusList */,
@@ -178,6 +189,7 @@
 				03379AF42C1182FC00F10305 /* Empty Screen.swift in Sources */,
 				03CCA33C2C088C8F0021875D /* ComboSlider.swift in Sources */,
 				03379AF22C1182FC00F10305 /* BusViewModel.swift in Sources */,
+				030842A02C12D9FD0013EFD7 /* SortByView.swift in Sources */,
 				03379AF52C1182FC00F10305 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

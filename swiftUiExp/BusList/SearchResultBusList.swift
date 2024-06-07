@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct SearchResultBusList: View {
-    
     @ObservedObject var viewModel = BusServiceViewModel()
+    @State var sortByTap = false
     
     var body: some View {
         VStack{
             VStack {
                 CustomHeaderView()
                     .padding(.top,8)
-                CustomFilterView()
+                CustomFilterView(sortByTapped: $sortByTap)
                     .padding(.top,16)
                 Spacer()
             }
@@ -25,10 +25,17 @@ struct SearchResultBusList: View {
             .background(Color(hex:"#111111"))
            
             if viewModel.hasFetchedData {
-                BusListView()
+                BusListView(viewModel: viewModel)
+                    .opacity(sortByTap ? 0.3 : 1.0)
+                    .allowsHitTesting(!sortByTap)
+                    .overlay(alignment: .top){
+                        if sortByTap {
+                            SortByView()
+                        }
+                    }
             }else {
                 EmptyBusListView()
-                .padding(.top,120)
+                    .padding(.top,120)
             }
 //            BusListView()
            
@@ -105,7 +112,7 @@ struct CircleWithPencil: View {
 }
 
 struct CustomFilterView: View {
-    
+    @Binding var sortByTapped: Bool
     let rows:[GridItem] = [
         GridItem(.fixed(40))
     ]
@@ -146,6 +153,13 @@ struct CustomFilterView: View {
                                       
                                 }
                                 .padding()
+                            }.onTapGesture {
+                                if item.text == "Sort by"{
+                                    withAnimation(.easeInOut.speed(0.4)) {
+                                        sortByTapped.toggle()
+                                    }
+                                    
+                                }
                             }
                         }
                         .padding(.leading, 1)
