@@ -9,7 +9,10 @@ import SwiftUI
 
 struct SortByView: View {
     
-    @State var listTextSelect: String = "All"
+    @ObservedObject var viewModel : BusServiceViewModel
+    
+//    @State var listTextSelect: SortBy = .all
+    @Binding var onTapRemove: Bool
     var body: some View {
        RoundedRectangle(cornerRadius: 20)
             .fill(Color(hex: "#222222"))
@@ -19,19 +22,21 @@ struct SortByView: View {
             .overlay {
                 VStack(){
                     
-                    SortByList(sortText: "All", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "All", onTapRemove: $onTapRemove)
                     Spacer(minLength: 20)
-                    SortByList(sortText: "Top Rated", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "Top rated", onTapRemove: $onTapRemove)
                     Spacer(minLength: 20)
-                    SortByList(sortText: "Price: Cheapest", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "Price: Cheapest", onTapRemove: $onTapRemove)
                     Spacer(minLength: 20)
-                    SortByList(sortText: "Price: Expensive", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "Price: Expensive", onTapRemove: $onTapRemove)
                     Spacer(minLength: 20)
-                    SortByList(sortText: "Availability: High to Low", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "Availability: Low to High", onTapRemove: $onTapRemove)
                     Spacer(minLength: 20)
-                    SortByList(sortText: "Departure: Early", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "Availability: High to Low", onTapRemove: $onTapRemove)
                     Spacer(minLength: 20)
-                    SortByList(sortText: "Departure: Late", onTexttap: $listTextSelect)
+                    SortByList(viewModel: self.viewModel, sortText: "Departure: Early", onTapRemove: $onTapRemove)
+                    Spacer(minLength: 20)
+                    SortByList(viewModel: self.viewModel, sortText: "Departure: Late", onTapRemove: $onTapRemove)
                     
                 }.padding(.vertical, 20)
             }
@@ -39,17 +44,21 @@ struct SortByView: View {
     }
 }
 
-#Preview {
-    SortByView()
-}
+//#Preview {
+//    SortByView()
+//}
 
 struct SortByList: View {
+    
+    @ObservedObject var viewModel : BusServiceViewModel
+    
     var sortText : String
-    @Binding var onTexttap: String
+//    @Binding var onTexttap: SortBy
+    @Binding var onTapRemove: Bool
     var body: some View {
         HStack(){
-            Image(systemName: sortText == onTexttap ? "record.circle" : "circle")
-                .foregroundColor(Color(hex: sortText == onTexttap ? "#EF233C" : "#888888"))
+            Image(systemName: sortText == viewModel.sortBySelected.rawValue ? "record.circle" : "circle")
+                .foregroundColor(Color(hex: sortText == viewModel.sortBySelected.rawValue ? "#EF233C" : "#888888"))
             Text(sortText)
                 .foregroundStyle(Color.white)
                 .font(.system(size: 16))
@@ -57,9 +66,15 @@ struct SortByList: View {
             Spacer()
         }.padding(.leading, 40)
             .onTapGesture {
-                withAnimation(.easeInOut.speed(0.8)) {
-                    onTexttap = sortText
+                withAnimation(.easeInOut.speed(0.6)) {
+                    viewModel.sortBySelected = mapSortTextToSortBy(sortText)
+                    onTapRemove.toggle()
+                    print(viewModel.sortBySelected.rawValue)
                 }
             }
+    }
+    
+    private func mapSortTextToSortBy(_ text: String) -> SortBy {
+        return SortBy(rawValue: text) ?? .all
     }
 }

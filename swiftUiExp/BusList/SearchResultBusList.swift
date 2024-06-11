@@ -13,16 +13,18 @@ struct SearchResultBusList: View {
     
     var body: some View {
         VStack{
-            VStack {
+//            VStack {
                 CustomHeaderView()
                     .padding(.top,8)
-                CustomFilterView(sortByTapped: $sortByTap)
+//                CustomFilterView(sortByTapped: $sortByTap)
                     .padding(.top,16)
-                Spacer()
-            }
-            .frame(height: 128)
-            .padding(.horizontal, 16)
-            .background(Color(hex:"#111111"))
+            HorizintalFilterView(busViewModel: self.viewModel, shortByTapped:$sortByTap)
+                    .padding(.top,16)
+//                Spacer()
+//            }
+//            .frame(height: 128)
+//            .padding(.horizontal, 16)
+//            .background(Color(hex:"#111111"))
            
             if viewModel.hasFetchedData {
                 BusListView(viewModel: viewModel)
@@ -30,7 +32,7 @@ struct SearchResultBusList: View {
                     .allowsHitTesting(!sortByTap)
                     .overlay(alignment: .top){
                         if sortByTap {
-                            SortByView()
+                            SortByView(viewModel: self.viewModel, onTapRemove: $sortByTap)
                         }
                     }
             }else {
@@ -87,7 +89,7 @@ struct CustomHeaderView: View {
             .frame(height: 56)
         }
         .frame(height: 56)
-//        .padding(.horizontal,16)
+        .padding(.horizontal,16)
     }
 }
 
@@ -166,7 +168,8 @@ struct CustomFilterView: View {
                                       
                                 }
                                 .padding()
-                            }.onTapGesture {
+                            }
+                            .onTapGesture {
                                 if item.text == "Sort by"{
                                     withAnimation(.easeInOut.speed(0.4)) {
                                         sortByTapped.toggle()
@@ -190,7 +193,7 @@ struct BusListView: View {
    
     var body: some View {
         List {
-            ForEach($viewModel.busServices) { item in
+            ForEach($viewModel.sortedBusServices) { item in
                 VStack(alignment: .leading, spacing: 16) {
                     HStack {
                         VStack(alignment: .leading,spacing: 0) {
@@ -241,21 +244,21 @@ struct BusListView: View {
                     HStack {
                         VStack(alignment:.leading) {
                             HStack {
-                                Text(item.startTime.wrappedValue)
+                                Text(viewModel.convertTo24HourFormat(time: item.startTime.wrappedValue)!)
 //                                    .font(.title2)
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 24))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color(hex: "##EEEEEE"))
                                
                                 Image("pointAtoB")
                                 
-                                Text(item.arrTime.wrappedValue)
+                                Text(viewModel.convertTo24HourFormat(time: item.arrTime.wrappedValue)!)
 //                                    .font(.title2)
                                     .foregroundColor(Color(hex: "##EEEEEE"))
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 24))
                                     .fontWeight(.bold)
                             }
-                            Text(item.travelTime.wrappedValue)
+                            Text(viewModel.convertDurationToReadableFormat(duration: item.travelTime.wrappedValue) ?? "")
                                 .foregroundColor(.gray)
                         }
                         
@@ -269,7 +272,7 @@ struct BusListView: View {
                                 Image("rupee₹")
                                 
                                 Text("\(item.fare.wrappedValue)")
-                                    .font(.system(size: 20))
+                                    .font(.system(size: 22))
                                     .fontWeight(.bold)
                                     .padding(.trailing)
                                     .foregroundColor(Color(hex: "#FEFEFE"))
@@ -317,6 +320,8 @@ struct BusListView: View {
             }
            
         }
+        .animation(.easeInOut(duration: 0.3).delay(0.1), value: viewModel.sortedBusServices)
+//        .animation(.easeInOut)
         .scrollIndicators(.hidden)
         .listStyle(PlainListStyle())
         .padding(.horizontal,16)
@@ -329,12 +334,3 @@ struct BusListView: View {
 
 
 
-
-
-enum FilterImage: String {
-    case sort_by = "expand_all"
-    case ac = "ac"
-    case non_ac = "non_ac"
-    case single = "chair"
-    case sleeper = "Sleeper"
-}
