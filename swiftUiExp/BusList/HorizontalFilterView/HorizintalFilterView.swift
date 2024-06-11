@@ -11,7 +11,7 @@ import SwiftUI
 //MARK: - Filter View
 struct HorizintalFilterView: View {
     
-    @StateObject var busViewModel : BusServiceViewModel
+    @ObservedObject var busViewModel : BusServiceViewModel
     @Binding var shortByTapped: Bool
     
     @StateObject var viewModel = FilterViewModel()
@@ -53,14 +53,14 @@ struct HorizintalFilterView: View {
 //                                if item.text == "Sort by" {
 //                                    print("hi")
 //                                }
-                                viewModel.performAction(for: item, viewModel: self.busViewModel)
+                                
                                 
                                 if item.text == "Sort by"{
                                     withAnimation(.easeInOut.speed(0.9)) {
                                         shortByTapped.toggle()
-                                        
                                     }
-                                    
+                                } else {
+                                    viewModel.performAction(for: item, viewModel: self.busViewModel)
                                 }
                             }
                         }

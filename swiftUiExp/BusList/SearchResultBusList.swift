@@ -82,7 +82,7 @@ struct CustomHeaderView: View {
                     .padding(.trailing,40)
                     
                     Spacer()
-                    CircleWithPencil()
+                    CircleFilterView()
                 }
                 .padding(.trailing, 10)
             }
@@ -94,7 +94,7 @@ struct CustomHeaderView: View {
 }
 
 
-struct CircleWithPencil: View {
+struct CircleFilterView: View {
     
     @EnvironmentObject var coordinator: Coordinator
     @State private var isPresentingModal = false
@@ -110,6 +110,21 @@ struct CircleWithPencil: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 24, height: 24)
                 .foregroundColor(.white)
+            
+            ZStack {
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: 16, height: 16)
+                    .overlay {
+                        Circle().stroke(Color(hex: "#181818"), lineWidth: 1.5)
+                    }
+                
+                Text("5")
+                    .foregroundColor(.black)
+                    .font(.system(size: 10))
+            }
+            .offset(x: 13, y: -10)
+            
         }
         .onTapGesture {
             isPresentingModal = true

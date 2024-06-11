@@ -14,7 +14,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var hasFetchedData = false
     @Published var sortBySelected: SortBy = .all {
         didSet {
-            updateSortedBusServices()
+            updateSortedBusServices(busServices: busServices)
         }
     }
     @Published var sortedBusServices: [BusService] = []
@@ -79,7 +79,7 @@ class BusServiceViewModel: ObservableObject {
     //MARK: - Sortby
     
    
-    private func updateSortedBusServices() {
+    func updateSortedBusServices(busServices: [BusService]) {
             switch sortBySelected {
             case .all:
                 sortedBusServices = busServices

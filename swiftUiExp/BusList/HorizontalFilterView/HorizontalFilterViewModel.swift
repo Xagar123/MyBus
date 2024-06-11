@@ -29,70 +29,71 @@ class FilterViewModel: ObservableObject {
             
             let selectedFilters = filterItems.filter { $0.isSelected }
             
-            if selectedFilters.count == 0 {
-                viewModel.sortedBusServices = viewModel.busServices
+            if selectedFilters.isEmpty {
+                viewModel.updateSortedBusServices(busServices: viewModel.busServices)
             } else {
-                for filter in selectedFilters {
-                    
-                    switch filter.image {
-                    case .sort_by:
-                        sortByTapped()
-                    case .ac:
-                        acTapped(vm:viewModel)
-                    case .non_ac:
-                        nonAcTapped(vm:viewModel)
-                    case .single:
-                        singleTapped(vm: viewModel)
-                    case .sleeper:
-                        sleeperTapped(vm: viewModel)
-                    }
-                }
+                applySelectedFilters(viewModel: viewModel, selectedFilters: selectedFilters)
             }
            
         }
     }
     
-    func sortByTapped() {
-        print("Sort by tapped")
-        // Add your specific action code here
-    }
     
-    func acTapped(vm:BusServiceViewModel) {
-        let acService = vm.busServices.filter { service in
-            !service.busType.contains("NON-AC")
+    private func applySelectedFilters(viewModel: BusServiceViewModel, selectedFilters: [FilterItem]) {
+        var filteredServices = Set<BusService>()
+        var acSelected = false
+        var nonAcSelected = false
+        var singleSelected = false
+        var sleeperSelected = false
+
+        for filter in selectedFilters {
+            switch filter.image {
+            case .ac:
+                acSelected = true
+            case .non_ac:
+                nonAcSelected = true
+            case .single:
+                singleSelected = true
+            case .sleeper:
+                sleeperSelected = true
+            default:
+                break
+            }
         }
-        vm.sortedBusServices = acService
-        print(acService)
-    }
-    
-    func nonAcTapped(vm:BusServiceViewModel) {
-        print("Non AC tapped")
-        let nonACService = vm.busServices.filter { service in
-            service.busType.contains("NON-AC")
+
+        var acNonAcServices = Set<BusService>()
+        
+        if acSelected {
+            acNonAcServices.formUnion(viewModel.busServices.filter { $0.busType.contains("AC") && !$0.busType.contains("NON-AC") })
         }
-        vm.sortedBusServices = nonACService
-        print(nonACService)
-    }
-    
-    func singleTapped(vm:BusServiceViewModel) {
-        print("Single tapped")
-        let singleSeat = vm.busServices.filter { service in
-            service.busType.contains("SEATER")
+        if nonAcSelected {
+            acNonAcServices.formUnion(viewModel.busServices.filter { $0.busType.contains("NON-AC") })
         }
-        vm.sortedBusServices = singleSeat
-        print(singleSeat)
-    }
-    
-    func sleeperTapped(vm:BusServiceViewModel) {
-        print("Sleeper tapped")
-        let sleeper = vm.busServices.filter { service in
-            service.busType.contains("SLEEPER")
+        
+        if singleSelected || sleeperSelected {
+            if acSelected || nonAcSelected {
+                if singleSelected {
+                    filteredServices.formUnion(acNonAcServices.filter { $0.busType.contains("SEATER") })
+                }
+                if sleeperSelected {
+                    filteredServices.formUnion(acNonAcServices.filter { $0.busType.contains("SLEEPER") })
+                }
+            } else {
+                if singleSelected {
+                    filteredServices.formUnion(viewModel.busServices.filter { $0.busType.contains("SEATER") })
+                }
+                if sleeperSelected {
+                    filteredServices.formUnion(viewModel.busServices.filter { $0.busType.contains("SLEEPER") })
+                }
+            }
+        } else {
+            filteredServices = acNonAcServices
         }
-        vm.sortedBusServices = sleeper
-        print(sleeper)
+        
+        print(viewModel.sortBySelected)
+        viewModel.sortedBusServices = Array(filteredServices)
+        viewModel.updateSortedBusServices(busServices: viewModel.sortedBusServices)
+        print(filteredServices)
     }
-    
-   
-    
- 
+
 }
