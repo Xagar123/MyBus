@@ -63,7 +63,7 @@ struct FilterFullScreen: View {
                         }.padding(.horizontal, 20)
                     }   
             }
-        }.padding(.top, 10)
+        }//.padding(.top, 10)
             .onTapGesture {
                 hideKeyboard()
             }

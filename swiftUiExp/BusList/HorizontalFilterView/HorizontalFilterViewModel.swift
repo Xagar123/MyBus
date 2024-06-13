@@ -6,81 +6,94 @@
 //
 
 import Foundation
+import SwiftUI
 
 class FilterViewModel: ObservableObject {
     
-    @Published var filterItems: [FilterItem]
-    var busViewModel = BusServiceViewModel()
+    @Published var filterItems: [FilterItem] = [
+        FilterItem(image: .sort_by, text: "Sort by",filterType: .sortBy, isSelected: false),
+        FilterItem(image: .ac, text: "AC",filterType: .ac, isSelected: false),
+        FilterItem(image: .non_ac, text: "Non AC",filterType: .nonAC, isSelected: false),
+        FilterItem(image: .single, text: "Single",filterType: .seater, isSelected: false),
+        FilterItem(image: .sleeper, text: "Sleeper",filterType: .sleeper, isSelected: false)
+    ]
+   // var busViewModel = BusServiceViewModel()
     
     init() {
-        self.filterItems = [
-            FilterItem(image: .sort_by, text: "Sort by",filterType: .sortBy),
-            FilterItem(image: .ac, text: "AC",filterType: .ac),
-            FilterItem(image: .non_ac, text: "Non AC",filterType: .nonAC),
-            FilterItem(image: .single, text: "Single",filterType: .seater),
-            FilterItem(image: .sleeper, text: "Sleeper",filterType: .sleeper)
-        ]
+
     }
     
-    func performAction(for item: FilterItem) {
+    func performAction(for item: FilterItem,viewModel:BusServiceViewModel) {
         if let index = filterItems.firstIndex(where: { $0.id == item.id }) {
             filterItems[index].isSelected.toggle()
             
-            switch item.image {
-            case .sort_by:
-                sortByTapped()
-            case .ac:
-                acTapped()
-            case .non_ac:
-                nonAcTapped()
-            case .single:
-                singleTapped()
-            case .sleeper:
-                sleeperTapped()
+            let selectedFilters = filterItems.filter { $0.isSelected }
+            
+            if selectedFilters.isEmpty {
+                viewModel.updateSortedBusServices(busServices: viewModel.busServices)
+            } else {
+                applySelectedFilters(viewModel: viewModel, selectedFilters: selectedFilters)
             }
+           
         }
     }
     
-    func sortByTapped() {
-        print("Sort by tapped")
-        // Add your specific action code here
-    }
     
-    func acTapped() {
-        print("AC tapped")
-        // Add your specific action code here
+    private func applySelectedFilters(viewModel: BusServiceViewModel, selectedFilters: [FilterItem]) {
+        var filteredServices = Set<BusService>()
+        var acSelected = false
+        var nonAcSelected = false
+        var singleSelected = false
+        var sleeperSelected = false
+
+        for filter in selectedFilters {
+            switch filter.image {
+            case .ac:
+                acSelected = true
+            case .non_ac:
+                nonAcSelected = true
+            case .single:
+                singleSelected = true
+            case .sleeper:
+                sleeperSelected = true
+            default:
+                break
+            }
+        }
+
+        var acNonAcServices = Set<BusService>()
+        
+        if acSelected {
+            acNonAcServices.formUnion(viewModel.busServices.filter { $0.busType.contains("AC") && !$0.busType.contains("NON-AC") })
+        }
+        if nonAcSelected {
+            acNonAcServices.formUnion(viewModel.busServices.filter { $0.busType.contains("NON-AC") })
+        }
+        
+        if singleSelected || sleeperSelected {
+            if acSelected || nonAcSelected {
+                if singleSelected {
+                    filteredServices.formUnion(acNonAcServices.filter { $0.busType.contains("SEATER") })
+                }
+                if sleeperSelected {
+                    filteredServices.formUnion(acNonAcServices.filter { $0.busType.contains("SLEEPER") })
+                }
+            } else {
+                if singleSelected {
+                    filteredServices.formUnion(viewModel.busServices.filter { $0.busType.contains("SEATER") })
+                }
+                if sleeperSelected {
+                    filteredServices.formUnion(viewModel.busServices.filter { $0.busType.contains("SLEEPER") })
+                }
+            }
+        } else {
+            filteredServices = acNonAcServices
+        }
+        
+        print(viewModel.sortBySelected)
+        viewModel.sortedBusServices = Array(filteredServices)
+        viewModel.updateSortedBusServices(busServices: viewModel.sortedBusServices)
+        print(filteredServices)
     }
-    
-    func nonAcTapped() {
-        print("Non AC tapped")
-        // Add your specific action code here
-    }
-    
-    func singleTapped() {
-        print("Single tapped")
-        // Add your specific action code here
-    }
-    
-    func sleeperTapped() {
-        print("Sleeper tapped")
-        // Add your specific action code here
-    }
-    
-//    func updateFileredBusService() {
-//        
-//        var filteredServices: [BusService] = []
-//        
-//        for service in busViewModel.busServices {
-//            
-//            var shouldIncludeService = true
-//            
-//            for filterItem in filterItems {
-//                if filterItem.isSelected && !service.matchesFilterCriteria(filterItem) {
-//                    
-//                }
-//            }
-//        }
-//        
-//    }
- 
+
 }
