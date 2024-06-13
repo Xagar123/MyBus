@@ -76,7 +76,11 @@ struct BusService: Codable,Identifiable, Hashable {
         self.isBordDropFirst = try container.decode(String.self, forKey: .isBordDropFirst)
         self.isSingleLady = try container.decode(String.self, forKey: .isSingleLady)
     }
+    
+   
 }
+
+
 
 struct DroppingInfo: Codable {
     let info: String

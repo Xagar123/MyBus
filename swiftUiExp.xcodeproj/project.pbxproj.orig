@@ -13,9 +13,9 @@
 		03379AF32C1182FC00F10305 /* SearchResultBusList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03379AED2C1182FC00F10305 /* SearchResultBusList.swift */; };
 		03379AF42C1182FC00F10305 /* Empty Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03379AEE2C1182FC00F10305 /* Empty Screen.swift */; };
 		03379AF52C1182FC00F10305 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03379AEF2C1182FC00F10305 /* Model.swift */; };
+		03CB608A2C16C8BF0057BCA1 /* BoardingAndDroppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB60892C16C8BF0057BCA1 /* BoardingAndDroppingListView.swift */; };
 		03CB608C2C18293B0057BCA1 /* BoardingAndDroppingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB608B2C18293B0057BCA1 /* BoardingAndDroppingViewModel.swift */; };
 		03CB608E2C1829830057BCA1 /* DroppingAndBoardingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB608D2C1829830057BCA1 /* DroppingAndBoardingModel.swift */; };
-		03CB608F2C1ABF5C0057BCA1 /* BoardingAndDroppingListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CB60892C16C8BF0057BCA1 /* BoardingAndDroppingListView.swift */; };
 		03CCA33C2C088C8F0021875D /* ComboSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CCA33B2C088C8F0021875D /* ComboSlider.swift */; };
 		03CDEBE82C0487E7003A075D /* swiftUiExpApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDEBE72C0487E7003A075D /* swiftUiExpApp.swift */; };
 		03CDEBEA2C0487E7003A075D /* FilterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDEBE92C0487E7003A075D /* FilterFullScreen.swift */; };
@@ -238,7 +238,6 @@
 				03379AF32C1182FC00F10305 /* SearchResultBusList.swift in Sources */,
 				03CDEBE82C0487E7003A075D /* swiftUiExpApp.swift in Sources */,
 				03CB608C2C18293B0057BCA1 /* BoardingAndDroppingViewModel.swift in Sources */,
-				03CB608F2C1ABF5C0057BCA1 /* BoardingAndDroppingListView.swift in Sources */,
 				03379AF42C1182FC00F10305 /* Empty Screen.swift in Sources */,
 				FA2523272C12D913008216CB /* HorizontalFilterViewModel.swift in Sources */,
 				03CCA33C2C088C8F0021875D /* ComboSlider.swift in Sources */,
@@ -246,7 +245,11 @@
 				FA2523252C12D8EE008216CB /* FilterItemModel.swift in Sources */,
 				030842A02C12D9FD0013EFD7 /* SortByView.swift in Sources */,
 				03379AF52C1182FC00F10305 /* Model.swift in Sources */,
+<<<<<<< HEAD
+				03CB608A2C16C8BF0057BCA1 /* BoardingAndDroppingListView.swift in Sources */,
+=======
 				FA1FDE282C11B1E900B90FCA /* Coordinator.swift in Sources */,
+>>>>>>> main
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
