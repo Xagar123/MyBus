@@ -12,6 +12,7 @@ struct FilterFullScreen: View {
     @State var maximumPrice: String = "5000"
     @State var minimumPosition: CGFloat = 0.0
     @State var maximumPosition: CGFloat = 1.0
+    @StateObject var viewModel = BusServiceViewModel()
     var isIncoming = true
     var body: some View {
         

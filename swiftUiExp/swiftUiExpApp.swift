@@ -12,7 +12,7 @@ struct swiftUiExpApp: App {
 
     var body: some Scene {
         WindowGroup {
-           SearchResultBusList()
+            BoardingAndDroppingListView(viewModel: BusServiceViewModel())
         }
     }
 }

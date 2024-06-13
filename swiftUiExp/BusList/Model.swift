@@ -21,7 +21,8 @@ struct BusService: Codable,Identifiable, Hashable {
         var availableSeats, jdate, busStartDate: String
         var layoutID: Int
         var amenities: String?
-        var boardingInfo, droppingInfo: [String]
+        var boardingInfo: [String]
+        var droppingInfo: [String]
         var cancellationpolicy, busType, isBordDropFirst, isSingleLady: String
 
         enum CodingKeys: String, CodingKey {
@@ -81,4 +82,5 @@ struct DroppingInfo: Codable {
     let info: String
     let destination: String
 }
+
 

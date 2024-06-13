@@ -10,11 +10,16 @@ import Foundation
 class BusServiceViewModel: ObservableObject {
     
     @Published var busServices: [BusService] = []
+    @Published var filterBusList: [BusService] = []
     @Published var errorMessage: String?
     @Published var hasFetchedData = false
-    
+    var selectedBusIndex : Int = 10
+    @Published var pickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
+    @Published var dropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
+    var copyPickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
+    var copyDropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-07")
+            availableBusService(source: 3, destination: 5, date: "2024-06-13")
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -52,8 +57,9 @@ class BusServiceViewModel: ObservableObject {
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(BusServiceResponse.self, from: data)
                 let busList = response.services
-                print(busList)
-              
+             //   print(busList)
+                //parsePickupLocations(from: busList[9].boardingInfo)
+//              pickupPointList =
                 DispatchQueue.main.async {
                     self.busServices = busList
                     self.hasFetchedData = true
@@ -69,5 +75,28 @@ class BusServiceViewModel: ObservableObject {
     }
     
     
+    func filterPickupAndDropLocation(with searchText: String, onFirstPage: Bool ) {
+        if searchText == "" {
+            self.pickupPointList = self.copyPickupPointList
+            self.dropPointList = self.copyDropPointList
+            return
+        }
+        if onFirstPage {
+            self.pickupPointList = self.copyPickupPointList.filter { pickUpLocation in
+                if pickUpLocation.location.lowercased().contains(searchText.lowercased()) {
+                    return true
+                }
+                return false
+            }
+            
+        } else {
+            self.dropPointList = self.copyDropPointList.filter { pickUpLocation in
+                if pickUpLocation.location.lowercased().contains(searchText.lowercased()) {
+                    return true
+                }
+                return false
+            }
+        }
+    }
    
 }
