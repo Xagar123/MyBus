@@ -61,6 +61,27 @@ func parseDropLocation(from data: [String]) -> [PickupLocation] {
     
     return locations
 }
+func boardingDroppingLocation (from data: [String]) -> [BoardingDroppingLocation] {
+    var locations: [BoardingDroppingLocation] = []
+    
+    for item in data {
+        // Split the string by "^"
+        let components = item.split(separator: "^")
+        
+        // Check if there are enough components to extract data
+        if components.count >= 3 {
+            let location = String(components[0]).trimmingCharacters(in: .whitespacesAndNewlines)
+           
+            // Append the new PickupLocation to the array
+            locations.append(BoardingDroppingLocation(location: location))
+        }
+    }
+    
+    return locations
+}
+func boardingDroppingLocations(from locations: [String]) -> Set<BoardingDroppingLocation> {
+    return Set(locations.map { BoardingDroppingLocation(location: $0) })
+}
 
 
 

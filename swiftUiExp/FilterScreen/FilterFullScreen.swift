@@ -186,7 +186,7 @@ struct DepartureTimeView: View {
 }
 
 struct BusPartnerView: View {
-    @State private var isPresentingPreferredBusPartner = false
+       @State private var isPresentingPreferredBusPartner = false
        @State private var isPresentingBoardingPoint = false
        @State private var isPresentingDroppingPoint = false
     var title: String

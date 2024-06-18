@@ -13,3 +13,7 @@ struct PickupLocation: Identifiable {
     var location: String
     var fullAddress: String
 }
+struct BoardingDroppingLocation : Identifiable,Hashable{
+    var id = UUID()
+    var location : String
+}

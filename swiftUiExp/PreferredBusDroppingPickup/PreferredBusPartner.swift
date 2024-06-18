@@ -31,70 +31,9 @@ struct Operators : Codable , Identifiable,Hashable{
         self.partialCancellation = partialCancellation
     }
 }
-struct PreferredDropping : Codable,Identifiable {
-    var id : UUID? = UUID()
-    var status : String
-    var services : [Services]
-}
-struct Services : Codable, Identifiable, Hashable{
-    var id: UUID? = UUID()
-    var operatorId : String
-    var Service_key : String
-    var Service_Name : String
-    var Service_Number : String
-    var Traveler_Agent_Name  : String
-    var Bus_Type_Name : String
-    var Start_time : String
-    var Arr_Time : String
-    var TravelTime : String?
-    var Source_ID : Int
-    var Destination_ID : Int
-    var Fare : Int
-    var available_seats : String
-    var jdate : String
-    var BUS_START_DATE : String
-    var layout_id : Int?
-    var Amenities : String?
-    var boarding_info : [String]
-    var dropping_info : [String]
-    var Cancellationpolicy : String
-    var bus_type : String
-    var isBordDropFirst : String
-    var isSingleLady : String
-    var allowedConcessions : [String]?
-}
-struct RefundPolicies: Codable ,Identifiable{
-    var id: UUID? = UUID()
-    
-    var status : String
-    var Cancellationpy : Cancellation
-    
-}
-struct Cancellation : Codable,Identifiable {
-  var id: UUID? = UUID()
-   var  operatorId : String
-   var  Service_key : String
-   var  Service_Name : String
-   var  Traveler_Agent_Name : String
-    var arrboarding_info : String
-    var Cancellationpy : isCancellables
-}
-struct isCancellables : Codable, Identifiable{
-    var id: UUID? = UUID()
-    
-    var  isCancellable : String
-    var conditions : [Results]
-    
-}
-struct Results: Codable , Identifiable{
-    var id: UUID? = UUID()
-    var rp : String
-    var cc : String
-    var tl : String
-}
-
 
 struct PreferredBusPartner: View {
+    @Environment(\.dismiss) var dismiss
     @State private var isPresentingPreferredBusPartner = false
     @State private var isPresentingBoardingPoint = false
     @State private var isPresentingDroppingPoint = false
@@ -102,9 +41,11 @@ struct PreferredBusPartner: View {
     @State var preferredBusPartner  = []
     var placeholderText : String
     @State var selectedItems  =  [Operators]()
-    @State var servicesSelectedItem = [Services]()
+    @State var servicesSelectedItem = [BusService]()
     var pageType : ScreenType
-    @StateObject var busViewModel = BusServiceViewModel()
+    @ObservedObject var busViewModel = BusServiceViewModel()
+    
+    
     var body: some View {
         NavigationView{
             
@@ -115,6 +56,10 @@ struct PreferredBusPartner: View {
                     }) {
                         Image("Chevron_right")
                     }
+                    .onTapGesture {
+                        dismiss()
+                    }
+                 
                     //                    .padding(.trailing)
                     Text(pageType.rawValue)
                         .fontWeight(.bold)
@@ -167,20 +112,17 @@ struct PreferredBusPartner: View {
                             PreferredBusPartnerView(viewModel: viewModel, selectedItems: $selectedItems)
                         }
                         
-                    case .PreferredDroppingPoint:
-                        if let searchResult = viewModel.preferredDroppingPickUPPointSearchResult {
-                            PreferredDroppingAndPickUpPointView(preferredDroppingAndPickUpPointListData: searchResult, selectedItems: $servicesSelectedItem)
-//                        if let searchResult = busViewModel.filterBusList {
-//                            PreferredDroppingAndPickUpPointView(preferredDroppingAndPickUpPointListData : searchResult, selectedItems: <#T##Binding<[Services]>#>)
-                            
+                    case .PreferredPickupPoint:
+                        if viewModel.preferredDroppingPickUPPointSearchResult != nil {
+                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         } else {
-                            PreferredDroppingAndPickUpPointView(preferredDroppingAndPickUpPointListData: viewModel.fetchDroppingAndPickUpPoint, selectedItems: $servicesSelectedItem)
+                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         }
-                    case .PreferredPickupPoint :
-                        if let searchResult = viewModel.preferredDroppingPickUPPointSearchResult {
-                            PreferredDroppingAndPickUpPointView(preferredDroppingAndPickUpPointListData: searchResult, selectedItems: $servicesSelectedItem)
+                    case .PreferredDroppingPoint :
+                        if viewModel.preferredDroppingPickUPPointSearchResult != nil {
+                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         } else {
-                            PreferredDroppingAndPickUpPointView(preferredDroppingAndPickUpPointListData: viewModel.fetchDroppingAndPickUpPoint, selectedItems: $servicesSelectedItem)
+                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         }
                     }
                 }
@@ -190,26 +132,7 @@ struct PreferredBusPartner: View {
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
                     .padding(.bottom,10)
                 Button("Continue") {
-                    if pageType == .preferredBusPartner {
-                        isPresentingBoardingPoint = true
-                        
-                    }
-                    else if pageType == .PreferredPickupPoint {
-                        isPresentingBoardingPoint = true
-                        
-                    }
-                    else if pageType == .PreferredDroppingPoint{
-                        isPresentingDroppingPoint = true
-                    }
-                    else {
-                        
-                    }
-                }
-                .fullScreenCover(isPresented: $isPresentingBoardingPoint) {
-                    PreferredBusPartner(placeholderText: "Preferred PickUpPoint", pageType: .PreferredPickupPoint)
-                }
-                .fullScreenCover(isPresented: $isPresentingDroppingPoint) {
-                    PreferredBusPartner(placeholderText: "Preferred PickUpPoint", pageType: .PreferredDroppingPoint)
+                    dismiss()
                 }
                 .frame(width: 328,height: 48,alignment: .center)
                 .background(Color.white)
@@ -228,7 +151,7 @@ struct PreferredBusPartner: View {
 
 
 #Preview {
-    PreferredBusPartner(placeholderText: "preffered location", pageType: .PreferredPickupPoint)
+    PreferredBusPartner(placeholderText: "preffered location", pageType: .PreferredDroppingPoint, busViewModel: BusServiceViewModel())
 }
 
 
@@ -283,92 +206,85 @@ struct CreateListView : View {
 }
 
 
-struct PreferredDroppingAndPickUpPointView: View {
-    var preferredDroppingAndPickUpPointListData: [Services]
-    @Binding var selectedItems:  [Services]
-    @State var processedDroppingInfo = []
-    @State var processedBoardingInfo : [String] = []
+struct PreferredBoardingPointView: View {
+    
+    @Binding var selectedItems: [BusService]
+    @ObservedObject var viewModel: BusServiceViewModel
     
     var body: some View {
-        List(preferredDroppingAndPickUpPointListData, id: \.operatorId) { item in
-                   VStack(alignment: .leading,spacing: 20) {
-                       ForEach(filterDroppingInfo(item.dropping_info), id: \.self) { filteredInfo in
-                           HStack{
-                               Text(filteredInfo)
-                               Spacer()
-                               Image(systemName: selectedItems.contains(item) ? "checkmark.square.fill" : "square")
-                           }
-                       }
+        List {
+            ForEach(viewModel.busServices.indices, id: \.self) { index in
+                ForEach(viewModel.busServices[index].boardingInfo, id: \.self) { location in
+                    HStack {
+                        Text(location)
+                        Spacer()
                         
-                    }
-                
-                .padding(.vertical,10)
-                .onTapGesture {
-                    print("tapped")
-                    if selectedItems.contains(item) {
-                        selectedItems.removeAll { service in
-                            if service == item {
-                                return true
+                            .onTapGesture {
                             }
-                            return false
-                        }
-                    } else {
-                        selectedItems.append(item)
-                        
                     }
                 }
             }
             .listStyle(.plain)
-            
+            .onAppear {
+                printAllData()
+               
+            }
         }
     }
     
-    private func filterDroppingInfo(_ infos: [String]) -> [String] {
-        return infos.map { info in
-            let components = info.split(separator: "^")
-            return components.count > 1 ? String(components[1]) : ""
+    private func printAllData() {
+        for (index, service) in viewModel.busServices.enumerated() {
+            print("Bus Service \(index + 1):")
+            for location in service.boardingInfo {
+                print("- \(location)")
+            }
+            print()
         }
     }
-struct PreferredPickupPointView : View {
-    @State var PreferredPickupPointViewListData: [Services]
-    @Binding var selectedItems:  [Services]
+}
+
+
+
+struct PreferredDroppingPointView : View {
+    @State var PreferredPickupPointViewListData: [BusService]
+    @Binding var selectedItems:  [BusService]
     @State var processedPickupInfo = []
     @State var processedBoardingInfo : [String] = []
+    @StateObject var viewModel: BusServiceViewModel
     
     var body: some View {
-        List(PreferredPickupPointViewListData, id: \.operatorId) { item in
-                   VStack(alignment: .leading,spacing: 20) {
-                       ForEach(item.boarding_info,id: \.self)
-                       { filteredInfo in
-                           HStack{
-                               Text(filteredInfo)
-                               Spacer()
-                               Image(systemName: selectedItems.contains(where: { element in
-                                   if element.operatorId == item.operatorId {
-                                       processedPickupInfo.append(item.dropping_info)
-                                       return true
-                                   } else {
-                                       return false
-                                   }
-                                   
-                               })  ? "checkmark.square.fill" : "square")
-                           }
-                       }
+        List {
+            ForEach(viewModel.busServices.indices, id: \.self) { index in
+                ForEach(viewModel.busServices[index].droppingInfo, id: \.self) { location in
+                    
+                    HStack {
+                        Text(location)
+                    Spacer()
                         
                     }
-                
-                .padding(.vertical,10)
-                .onTapGesture {
-                    selectedItems.append(item)
+                    
+                    .onTapGesture {
+                        
+                    }
+                }
+                .listStyle(.plain)
+                .onAppear {
+                    printAllData()
+                    
                 }
             }
-            .listStyle(.plain)
             
         }
     }
     
-  
-    
-
-    
+    private func printAllData() {
+        for (index, service) in viewModel.busServices.enumerated() {
+            print("Bus Service \(index + 1):")
+            for location in service.boardingInfo {
+                print("- \(location)")
+            }
+            print()
+        }
+    }
+}
 
