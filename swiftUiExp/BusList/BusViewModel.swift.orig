@@ -13,13 +13,11 @@ class BusServiceViewModel: ObservableObject {
     @Published var filterBusList: [BusService] = []
     @Published var errorMessage: String?
     @Published var hasFetchedData = false
-<<<<<<< HEAD
     var selectedBusIndex : Int = 10
     @Published var pickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     @Published var dropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     var copyPickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     var copyDropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
-=======
     @Published var sortBySelected: SortBy = .all {
         didSet {
             updateSortedBusServices(busServices: busServices)
@@ -27,9 +25,12 @@ class BusServiceViewModel: ObservableObject {
     }
     @Published var sortedBusServices: [BusService] = []
     
->>>>>>> main
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-13")
+<<<<<<< HEAD
+            availableBusService(source: 3, destination: 5, date: "2024-06-19")
+=======
+            availableBusService(source: 5, destination: 3, date: "2024-06-19")
+>>>>>>> main
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -86,7 +87,6 @@ class BusServiceViewModel: ObservableObject {
     }
     
     
-<<<<<<< HEAD
     func filterPickupAndDropLocation(with searchText: String, onFirstPage: Bool ) {
         if searchText == "" {
             self.pickupPointList = self.copyPickupPointList
@@ -110,7 +110,6 @@ class BusServiceViewModel: ObservableObject {
             }
         }
     }
-=======
     //MARK: - Sortby
     
    
@@ -198,6 +197,5 @@ class BusServiceViewModel: ObservableObject {
         
         return readableFormat
     }
->>>>>>> main
    
 }

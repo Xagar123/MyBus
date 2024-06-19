@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Screens: String, Identifiable {
-    case filterFullScreen, SearchResultBusList, boardingAndDropingView
+    case filterFullScreen, SearchResultBusList, boardingAndDropingView,busPartner
     
     var id:String {
         self.rawValue
@@ -24,7 +24,7 @@ enum Sheet: String, Identifiable {
 }
 
 enum FullScreens: String, Identifiable {
-    case filterFullScreen
+    case filterFullScreen, busPartner, boardingPoint, dropingPoint
     
     var id: String {
         self.rawValue
@@ -95,6 +95,8 @@ class Coordinator: ObservableObject {
             SearchResultBusList()
         case .boardingAndDropingView:
             BoardingAndDroppingListView(viewModel: BusServiceViewModel())
+        case .busPartner:
+            PreferredBusPartner(placeholderText: "Search destination", pageType: .preferredBusPartner)
         }
     }
     
@@ -111,6 +113,12 @@ class Coordinator: ObservableObject {
         switch fullScreen {
         case .filterFullScreen:
             FilterFullScreen()
+        case .busPartner:
+            PreferredBusPartner(placeholderText: "Search destination", pageType: .preferredBusPartner)
+        case .boardingPoint:
+            PreferredBusPartner(placeholderText: "Search location", pageType: .PreferredPickupPoint)
+        case .dropingPoint:
+            PreferredBusPartner(placeholderText: "Go", pageType: .PreferredDroppingPoint)
         }
     }
 }

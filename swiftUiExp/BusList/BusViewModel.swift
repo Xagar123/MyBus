@@ -13,7 +13,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var filterBusList: [BusService] = []
     @Published var errorMessage: String?
     @Published var hasFetchedData = false
-    var selectedBusIndex : Int = 10
+    var selectedBusIndex : Int = 1
     @Published var pickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     @Published var dropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     var copyPickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]

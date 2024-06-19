@@ -61,9 +61,6 @@ func parseDropLocation(from data: [String]) -> [PickupLocation] {
     
     return locations
 }
-
-
-
 func removeNumericPrefix(from address: String) -> String {
     // Regular expression to match and remove numeric prefixes
     let pattern = "^[0-9]+\\s*"
