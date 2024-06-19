@@ -23,6 +23,7 @@ struct BoardingAndDroppingListView: View {
             bottomContinueBar(isPickupSelected: $isPickupSelected, isDropSelected: $isDropSelected)
             
         }.background(Color(hex: "#111111"))
+        .navigationBarHidden(true)
     }
 }
 
@@ -107,12 +108,19 @@ struct pickupDropSlide: View {
 }
 
 struct topBar: View {
+    
+    @EnvironmentObject private var coordinator: Coordinator
+    
     var body: some View {
         HStack(){
-            Image(systemName: "chevron.backward")
-                .resizable()
-                .frame(width: 12,height: 20)
-                .foregroundStyle(Color.white)
+            Button(action: {
+                coordinator.pop(delay: 0.2)
+            }, label: {
+                Image(systemName: "chevron.backward")
+                    .resizable()
+                    .frame(width: 12,height: 20)
+                    .foregroundStyle(Color.white)
+            })
             Text("Select pickup & drop")
                 .font(.system(size: 20,weight: .bold))
                 .padding(.leading, 20)
@@ -140,10 +148,6 @@ struct searchBar: View {
                     .onChange(of: text, { oldValue, newValue in
                         viewModel.filterPickupAndDropLocation(with: newValue, onFirstPage: onFirstPage)
                     })
-//                    .onChange(of: text) { newValue in
-//                        // Filter items based on the new search text
-//                        
-//                    }
                     .onTapGesture {
                         
                     }
@@ -153,7 +157,7 @@ struct searchBar: View {
 }
 
 struct pickupDropList: View {
-    @ObservedObject var viewModel: BusServiceViewModel
+    @StateObject var viewModel: BusServiceViewModel
     @Binding var isPickupSelected: Bool
     @Binding var isDropSelected: Bool
     @Binding var onFirstPage: Bool
@@ -220,7 +224,7 @@ struct pickupDropList: View {
                 .listRowBackground(Color(hex: "#111111"))
         }.listStyle(.plain)
             .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
                     viewModel.pickupPointList =  parsePickupLocations(from: viewModel.busServices.count > 0 ? viewModel.busServices[viewModel.selectedBusIndex].boardingInfo : [String]())
                     viewModel.copyPickupPointList = viewModel.pickupPointList
                     print("=======")

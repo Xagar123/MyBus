@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct SearchResultBusList: View {
-    @ObservedObject var viewModel = BusServiceViewModel()
+    
+//    @EnvironmentObject var coordinator: Coordinator
+    
+    @StateObject var viewModel = BusServiceViewModel()
     @State var sortByTap = false
     
     var body: some View {
@@ -97,6 +100,7 @@ struct CustomHeaderView: View {
 struct CircleFilterView: View {
     
     @EnvironmentObject var coordinator: Coordinator
+    
     @State private var isPresentingModal = false
     
     var body: some View {
@@ -129,13 +133,10 @@ struct CircleFilterView: View {
         .onTapGesture {
             isPresentingModal = true
 //            coordinator.navigate(to: .FilterView)
+            coordinator.presentSheet(.filterScreen)
+
            
         }
-        .sheet(isPresented: $isPresentingModal, content: {
-            FilterFullScreen()
-                .background(Color.clear)
-        })
-        
         .padding(.trailing,0)
         
     }
@@ -204,6 +205,7 @@ struct CustomFilterView: View {
     
 struct BusListView: View {
     
+    @EnvironmentObject private var coordinator: Coordinator
     @ObservedObject var viewModel : BusServiceViewModel
    
     var body: some View {
@@ -343,6 +345,9 @@ struct BusListView: View {
         .background(Color(hex:"#111111"))
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)
+        .onTapGesture {
+            coordinator.navigateToScreen(.boardingAndDropingView)
+        }
     }
 }
 

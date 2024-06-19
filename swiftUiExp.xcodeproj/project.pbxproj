@@ -21,11 +21,12 @@
 		03CDEBEA2C0487E7003A075D /* FilterFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03CDEBE92C0487E7003A075D /* FilterFullScreen.swift */; };
 		03CDEBEC2C0487E9003A075D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03CDEBEB2C0487E9003A075D /* Assets.xcassets */; };
 		03CDEBEF2C0487E9003A075D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03CDEBEE2C0487E9003A075D /* Preview Assets.xcassets */; };
-		FA1FDE282C11B1E900B90FCA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1FDE272C11B1E900B90FCA /* Coordinator.swift */; };
-		FA1FDE2A2C11B31300B90FCA /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1FDE292C11B31300B90FCA /* CoordinatorView.swift */; };
 		FA2523252C12D8EE008216CB /* FilterItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2523242C12D8EE008216CB /* FilterItemModel.swift */; };
 		FA2523272C12D913008216CB /* HorizontalFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2523262C12D913008216CB /* HorizontalFilterViewModel.swift */; };
 		FA2523292C12D935008216CB /* HorizintalFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2523282C12D935008216CB /* HorizintalFilterView.swift */; };
+		FA7542B62C205D54004B6B95 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7542B52C205D53004B6B95 /* Coordinator.swift */; };
+		FA7542B82C206304004B6B95 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7542B72C206304004B6B95 /* CoordinatorView.swift */; };
+		FA75AE472C22D4F500587B37 /* TicketDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA75AE462C22D4F500587B37 /* TicketDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,11 +45,12 @@
 		03CDEBE92C0487E7003A075D /* FilterFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterFullScreen.swift; sourceTree = "<group>"; };
 		03CDEBEB2C0487E9003A075D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03CDEBEE2C0487E9003A075D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		FA1FDE272C11B1E900B90FCA /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		FA1FDE292C11B31300B90FCA /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		FA2523242C12D8EE008216CB /* FilterItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItemModel.swift; sourceTree = "<group>"; };
 		FA2523262C12D913008216CB /* HorizontalFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalFilterViewModel.swift; sourceTree = "<group>"; };
 		FA2523282C12D935008216CB /* HorizintalFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizintalFilterView.swift; sourceTree = "<group>"; };
+		FA7542B52C205D53004B6B95 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		FA7542B72C206304004B6B95 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
+		FA75AE462C22D4F500587B37 /* TicketDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +123,7 @@
 		03CDEBE62C0487E7003A075D /* swiftUiExp */ = {
 			isa = PBXGroup;
 			children = (
+				FA75AE452C22D4C900587B37 /* TicketDetails */,
 				03CB60882C16C6F90057BCA1 /* BoardingAndDroppingPoint */,
 				0308429F2C12D9FD0013EFD7 /* SortByView */,
 				03CDEBE72C0487E7003A075D /* swiftUiExpApp.swift */,
@@ -144,8 +147,8 @@
 		FA1FDE262C11B1C300B90FCA /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				FA1FDE272C11B1E900B90FCA /* Coordinator.swift */,
-				FA1FDE292C11B31300B90FCA /* CoordinatorView.swift */,
+				FA7542B52C205D53004B6B95 /* Coordinator.swift */,
+				FA7542B72C206304004B6B95 /* CoordinatorView.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -158,6 +161,14 @@
 				FA2523282C12D935008216CB /* HorizintalFilterView.swift */,
 			);
 			path = HorizontalFilterView;
+			sourceTree = "<group>";
+		};
+		FA75AE452C22D4C900587B37 /* TicketDetails */ = {
+			isa = PBXGroup;
+			children = (
+				FA75AE462C22D4F500587B37 /* TicketDetailsView.swift */,
+			);
+			path = TicketDetails;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,10 +241,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA7542B62C205D54004B6B95 /* Coordinator.swift in Sources */,
 				03CDEBEA2C0487E7003A075D /* FilterFullScreen.swift in Sources */,
 				FA2523292C12D935008216CB /* HorizintalFilterView.swift in Sources */,
-				FA1FDE2A2C11B31300B90FCA /* CoordinatorView.swift in Sources */,
 				03379AF12C1182FC00F10305 /* BusListView.swift in Sources */,
+				FA7542B82C206304004B6B95 /* CoordinatorView.swift in Sources */,
+				FA75AE472C22D4F500587B37 /* TicketDetailsView.swift in Sources */,
 				03CB608E2C1829830057BCA1 /* DroppingAndBoardingModel.swift in Sources */,
 				03379AF32C1182FC00F10305 /* SearchResultBusList.swift in Sources */,
 				03CDEBE82C0487E7003A075D /* swiftUiExpApp.swift in Sources */,
@@ -246,7 +259,6 @@
 				FA2523252C12D8EE008216CB /* FilterItemModel.swift in Sources */,
 				030842A02C12D9FD0013EFD7 /* SortByView.swift in Sources */,
 				03379AF52C1182FC00F10305 /* Model.swift in Sources */,
-				FA1FDE282C11B1E900B90FCA /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
