@@ -13,8 +13,8 @@ struct swiftUiExpApp: App {
     var body: some Scene {
         WindowGroup {
 //            BoardingAndDroppingListView(viewModel: BusServiceViewModel())
-//            FilterFullScreen()
-            PreferredBusPartner(placeholderText: "Pickup point", pageType: .PreferredPickupPoint, busViewModel: BusServiceViewModel())
+            FilterFullScreen()
+          
         }
     }
 }

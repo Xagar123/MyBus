@@ -223,14 +223,14 @@ struct BusPartnerView: View {
                     isPresentingDroppingPoint = true}
             }
             .fullScreenCover(isPresented: $isPresentingPreferredBusPartner) {
-                PreferredBusPartner(placeholderText: "Preferred Bus Partner", pageType: .preferredBusPartner)
+                PreferredBusPartner(placeholderText: "Search destination", pageType: .preferredBusPartner)
                             }
         
             .fullScreenCover(isPresented: $isPresentingBoardingPoint) {
-                PreferredBusPartner(placeholderText: "Preferred Boarding Point", pageType: .PreferredPickupPoint)
+                PreferredBusPartner(placeholderText: "Search location", pageType: .PreferredPickupPoint)
                             }
             .fullScreenCover(isPresented: $isPresentingDroppingPoint) {
-                                PreferredBusPartner(placeholderText: "Preferred Dropping Point", pageType: .PreferredDroppingPoint)
+                                PreferredBusPartner(placeholderText: "Go", pageType: .PreferredDroppingPoint)
                             
                             }
            

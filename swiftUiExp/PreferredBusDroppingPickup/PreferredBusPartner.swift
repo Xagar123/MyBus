@@ -2,8 +2,8 @@ import SwiftUI
 import Combine
 enum ScreenType : String {
     case preferredBusPartner = "Preferred Bus Partner"
-    case PreferredPickupPoint = "PreferredPickupPoint"
-    case PreferredDroppingPoint = "PreferredDroppingPoint"
+    case PreferredPickupPoint = "Preferred Boarding Point"
+    case PreferredDroppingPoint = "Preferred Dropping Point"
 }
 struct preferredBus : Codable,Identifiable{
    
@@ -52,15 +52,10 @@ struct PreferredBusPartner: View {
             VStack{
                 HStack{
                     Button(action: {
-                        
+                        dismiss()
                     }) {
                         Image("Chevron_right")
                     }
-                    .onTapGesture {
-                        dismiss()
-                    }
-                 
-                    //                    .padding(.trailing)
                     Text(pageType.rawValue)
                         .fontWeight(.bold)
                         .font(.custom("Metropolis", size: 20))
@@ -113,16 +108,17 @@ struct PreferredBusPartner: View {
                         }
                         
                     case .PreferredPickupPoint:
-                        if viewModel.preferredDroppingPickUPPointSearchResult != nil {
-                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
+                        if let searchResult = viewModel.preferredDroppingPickUPPointSearchResult{
+                            PreferredBoardingPointView(listData: searchResult, selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         } else {
-                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
+                            PreferredDroppingBoardingView(viewModel: self.busViewModel, selectedItems: $servicesSelectedItem)
+                          
                         }
                     case .PreferredDroppingPoint :
-                        if viewModel.preferredDroppingPickUPPointSearchResult != nil {
-                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
+                        if (viewModel.preferredDroppingPickUPPointSearchResult != nil) {
+                            PreferredDroppingPointView(PreferredPickupPointViewListData: busViewModel.busServices, selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         } else {
-                            PreferredBoardingPointView(selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
+                            PreferredDroppingPointView(PreferredPickupPointViewListData: busViewModel.busServices, selectedItems: $servicesSelectedItem, viewModel: self.busViewModel)
                         }
                     }
                 }
@@ -132,8 +128,9 @@ struct PreferredBusPartner: View {
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
                     .padding(.bottom,10)
                 Button("Continue") {
-                    dismiss()
+                   dismiss()
                 }
+               
                 .frame(width: 328,height: 48,alignment: .center)
                 .background(Color.white)
                 .cornerRadius(8)
@@ -162,6 +159,13 @@ struct PreferredBusPartnerView : View {
     @Binding var selectedItems:  [Operators]
     var body: some View {
         CreateListView(listData: viewModel.fetchBusPartner, selectedItems: $selectedItems)
+    }
+}
+struct PreferredDroppingBoardingView : View {
+    @ObservedObject var viewModel : BusServiceViewModel
+    @Binding var selectedItems:  [BusService]
+    var body: some View {
+        PreferredBoardingPointView(listData: viewModel.busServices, selectedItems: $selectedItems, viewModel: self.viewModel)
     }
 }
 
@@ -207,75 +211,73 @@ struct CreateListView : View {
 
 
 struct PreferredBoardingPointView: View {
-    
+    var listData : [BusService]
     @Binding var selectedItems: [BusService]
     @ObservedObject var viewModel: BusServiceViewModel
-    
+    @State var pickupPointIndex: [String]? = []
+    @State var dropPointIndex: [String]? = []
+    @State var onFirstPage : Bool = false
+    @State var isPickupSelected : Bool = false
+    @State var isDropSelected : Bool = false
     var body: some View {
         List {
             ForEach(viewModel.busServices.indices, id: \.self) { index in
                 ForEach(viewModel.busServices[index].boardingInfo, id: \.self) { location in
-                    HStack {
-                        Text(location)
-                        Spacer()
-                        
-                            .onTapGesture {
-                            }
+                    
+                    let locationText = location.components(separatedBy: "^").first ?? ""
+                    VStack{
+                        HStack {
+                            Text(locationText)
+                            Spacer()
+                            Image(systemName: determineImageName(for: locationText))
+                                .onTapGesture {
+                                    handleSelection(for: locationText)
+                                }
+                        }
+                        .padding(.vertical, 10)
                     }
                 }
-            }
-            .listStyle(.plain)
-            .onAppear {
-                printAllData()
-               
             }
         }
-    }
-    
-    private func printAllData() {
-        for (index, service) in viewModel.busServices.enumerated() {
-            print("Bus Service \(index + 1):")
-            for location in service.boardingInfo {
-                print("- \(location)")
-            }
-            print()
-        }
-    }
-}
-
-
-
-struct PreferredDroppingPointView : View {
-    @State var PreferredPickupPointViewListData: [BusService]
-    @Binding var selectedItems:  [BusService]
-    @State var processedPickupInfo = []
-    @State var processedBoardingInfo : [String] = []
-    @StateObject var viewModel: BusServiceViewModel
-    
-    var body: some View {
-        List {
-            ForEach(viewModel.busServices.indices, id: \.self) { index in
-                ForEach(viewModel.busServices[index].droppingInfo, id: \.self) { location in
-                    
-                    HStack {
-                        Text(location)
-                    Spacer()
-                        
-                    }
-                    
-                    .onTapGesture {
-                        
-                    }
-                }
-                .listStyle(.plain)
-                .onAppear {
-                    printAllData()
-                    
-                }
-            }
+        .onAppear {
+            printAllData()
             
         }
+        .listStyle(.plain)
     }
+            
+          
+    
+    func handleSelection(for index: String) {
+            if onFirstPage {
+                if !(pickupPointIndex?.contains(index) ?? true) {
+                    pickupPointIndex?.append(index)
+                    isPickupSelected = true
+                    onFirstPage = false
+                } else {
+                }
+            } else {
+                if !(pickupPointIndex?.contains(index) ?? true) {
+                    pickupPointIndex?.append(index)
+                    isDropSelected = true
+                } else {
+                    pickupPointIndex?.removeAll(where: { str in
+                        if index == str {
+                            return true
+                        }
+                        return false
+                    })
+                }
+            }
+        }
+    func determineImageName(for index: String) -> String {
+           if onFirstPage {
+               return !(pickupPointIndex?.contains(index) ?? true) ? "square" : "checkmark.square.fill"
+           } else {
+               return !(pickupPointIndex?.contains(index) ?? true) ? "square" : "checkmark.square.fill"
+           }
+       }
+    
     
     private func printAllData() {
         for (index, service) in viewModel.busServices.enumerated() {
@@ -288,3 +290,122 @@ struct PreferredDroppingPointView : View {
     }
 }
 
+
+struct PreferredDroppingPointView: View {
+    @State var PreferredPickupPointViewListData: [BusService]
+    @Binding var selectedItems: [BusService]
+    @State var processedPickupInfos: [String] = []  // Ensure correct type
+    @State var processedBoardingInfo: [String] = []
+    @StateObject var viewModel: BusServiceViewModel
+    @State var onFirstPage : Bool = false
+    @State var isPickupSelected : Bool = false
+    @State var isDropSelected : Bool = false
+    @State var pickupPointIndex: [String]? = []
+    @State var dropPointIndex: [String]? = []
+    @State var secondLocationName: [String]? = []
+    @State var uniqueLocationName: Set<String> = []
+    var body: some View {
+        List {
+
+               
+                ForEach(Array(uniqueLocationName), id: \.self) { location in
+                        VStack(){
+                        HStack {
+                            Text("\(location)")
+                        
+                                Spacer()
+                                Image(systemName: determineImageName(for: location))
+                                    .onTapGesture {
+                                        handleSelection(for: location)
+                                    }
+                           
+                            
+                        }
+                    }
+                }
+            }
+            .padding(.vertical,10)
+   
+        .onAppear {
+
+                populateSecondLocationNames()
+                uniqueLocationNames()
+         
+            }
+            
+    }
+    
+    func populateSecondLocationNames() {
+        for index in viewModel.busServices.indices {
+            for location in viewModel.busServices[index].droppingInfo {
+                let locationName = secondWord(from: location)
+                self.secondLocationName?.append(locationName)
+            }
+        }
+    }
+    
+    func uniqueLocationNames() {
+        if let loactionName = secondLocationName  {
+            uniqueLocationName = Set(loactionName)
+
+        }else { print("") }
+    }
+    func handleSelection(for index: String) {
+        if onFirstPage {
+            if !(pickupPointIndex?.contains(index) ?? true) {
+                pickupPointIndex?.append(index)
+                isPickupSelected = true
+                onFirstPage = false
+            }
+            else {
+                pickupPointIndex?.removeAll(where: { str in
+                    if str == index
+                    {
+                        return true
+                    }
+                    return false
+                })
+            }
+        } else {
+            if !(dropPointIndex?.contains(index) ?? true) {
+                dropPointIndex?.append(index)
+                isDropSelected = true
+            }
+            else {
+                dropPointIndex?.removeAll(where: { str in
+                    if str == index
+                    {
+                        return true
+                    }
+                    return false
+                })
+            }
+        }
+    }
+    func determineImageName(for index: String) -> String {
+           if onFirstPage {
+               return !(pickupPointIndex?.contains(index) ?? true) ? "square" : "checkmark.square.fill"
+           } else {
+               return !(dropPointIndex?.contains(index) ?? true) ? "square" : "checkmark.square.fill"
+}
+       }
+    
+    func secondWord(from string: String) -> String {
+        let components = string.components(separatedBy: "^")
+        if components.count >= 2 {
+            return components[1]
+        } else {
+            return ""
+        }
+    }
+    
+    func printAllData() {
+        for (index, service) in viewModel.busServices.enumerated() {
+            print("Bus Service \(index + 1):")
+            for location in service.boardingInfo {
+                print("- \(location)")
+            }
+            print()
+        }
+    }
+}

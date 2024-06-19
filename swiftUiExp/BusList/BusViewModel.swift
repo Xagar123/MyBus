@@ -14,7 +14,6 @@ class BusServiceViewModel: ObservableObject {
     @Published var errorMessage: String?
     @Published var hasFetchedData = false
     var selectedBusIndex : Int = 10
-    @Published var boardingInfoLists: Set<BoardingDroppingLocation> = [BoardingDroppingLocation(location: "")]
     @Published var pickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     @Published var dropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     var copyPickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
@@ -27,7 +26,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var sortedBusServices: [BusService] = []
     
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-18")
+            availableBusService(source: 5, destination: 3, date: "2024-06-19")
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -72,7 +71,6 @@ class BusServiceViewModel: ObservableObject {
                     self.busServices = busList
                     self.sortedBusServices = busList
                     self.hasFetchedData = true
-                    print(self.busServices)
                 }
             } catch {
                 print("Error parsing JSON: \(error)")

@@ -25,6 +25,10 @@
 		7A03499B2C1B1AB200FE19E0 /* PreferredBusPartner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A03499A2C1B1AB200FE19E0 /* PreferredBusPartner.swift */; };
 		7A03499E2C1B1E1E00FE19E0 /* PreferredBusPartnerViewModel1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0349952C1B1A8600FE19E0 /* PreferredBusPartnerViewModel1.swift */; };
 		7A0349A12C1B1EA000FE19E0 /* PreferredBusPartnerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A03499F2C1B1E6B00FE19E0 /* PreferredBusPartnerViewModel.swift */; };
+		7A78BC1E2C21A0F200679A8E /* SeatLayoutNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78BC1D2C21A0F200679A8E /* SeatLayoutNotAvailable.swift */; };
+		7A78BC202C21A14900679A8E /* SeatNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78BC1F2C21A14900679A8E /* SeatNotAvailable.swift */; };
+		7A78BC222C21A19300679A8E /* Session Expired.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78BC212C21A19300679A8E /* Session Expired.swift */; };
+		7A78BC242C21A1DD00679A8E /* GoingBackBeforePayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78BC232C21A1DD00679A8E /* GoingBackBeforePayment.swift */; };
 		FA1FDE282C11B1E900B90FCA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1FDE272C11B1E900B90FCA /* Coordinator.swift */; };
 		FA1FDE2A2C11B31300B90FCA /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1FDE292C11B31300B90FCA /* CoordinatorView.swift */; };
 		FA2523252C12D8EE008216CB /* FilterItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2523242C12D8EE008216CB /* FilterItemModel.swift */; };
@@ -52,6 +56,10 @@
 		7A0349962C1B1AAA00FE19E0 /* ApiManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiManager.swift; path = ../../../../../ios_bus/iOS_BUS/KnowYourSeat/ApiManager.swift; sourceTree = "<group>"; };
 		7A03499A2C1B1AB200FE19E0 /* PreferredBusPartner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredBusPartner.swift; sourceTree = "<group>"; };
 		7A03499F2C1B1E6B00FE19E0 /* PreferredBusPartnerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferredBusPartnerViewModel.swift; path = ../../../../../.Trash/PreferredBusPartnerViewModel.swift; sourceTree = "<group>"; };
+		7A78BC1D2C21A0F200679A8E /* SeatLayoutNotAvailable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatLayoutNotAvailable.swift; sourceTree = "<group>"; };
+		7A78BC1F2C21A14900679A8E /* SeatNotAvailable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatNotAvailable.swift; sourceTree = "<group>"; };
+		7A78BC212C21A19300679A8E /* Session Expired.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Session Expired.swift"; sourceTree = "<group>"; };
+		7A78BC232C21A1DD00679A8E /* GoingBackBeforePayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoingBackBeforePayment.swift; sourceTree = "<group>"; };
 		FA1FDE272C11B1E900B90FCA /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		FA1FDE292C11B31300B90FCA /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 		FA2523242C12D8EE008216CB /* FilterItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterItemModel.swift; sourceTree = "<group>"; };
@@ -157,6 +165,10 @@
 				7A03499A2C1B1AB200FE19E0 /* PreferredBusPartner.swift */,
 				7A0349962C1B1AAA00FE19E0 /* ApiManager.swift */,
 				7A03499F2C1B1E6B00FE19E0 /* PreferredBusPartnerViewModel.swift */,
+				7A78BC1D2C21A0F200679A8E /* SeatLayoutNotAvailable.swift */,
+				7A78BC1F2C21A14900679A8E /* SeatNotAvailable.swift */,
+				7A78BC212C21A19300679A8E /* Session Expired.swift */,
+				7A78BC232C21A1DD00679A8E /* GoingBackBeforePayment.swift */,
 			);
 			path = PreferredBusDroppingPickup;
 			sourceTree = "<group>";
@@ -252,7 +264,9 @@
 			files = (
 				03CDEBEA2C0487E7003A075D /* FilterFullScreen.swift in Sources */,
 				FA2523292C12D935008216CB /* HorizintalFilterView.swift in Sources */,
+				7A78BC1E2C21A0F200679A8E /* SeatLayoutNotAvailable.swift in Sources */,
 				FA1FDE2A2C11B31300B90FCA /* CoordinatorView.swift in Sources */,
+				7A78BC202C21A14900679A8E /* SeatNotAvailable.swift in Sources */,
 				03379AF12C1182FC00F10305 /* BusListView.swift in Sources */,
 				03CB608E2C1829830057BCA1 /* DroppingAndBoardingModel.swift in Sources */,
 				03379AF32C1182FC00F10305 /* SearchResultBusList.swift in Sources */,
@@ -263,12 +277,14 @@
 				FA2523272C12D913008216CB /* HorizontalFilterViewModel.swift in Sources */,
 				7A03499B2C1B1AB200FE19E0 /* PreferredBusPartner.swift in Sources */,
 				7A0349972C1B1AAB00FE19E0 /* ApiManager.swift in Sources */,
+				7A78BC242C21A1DD00679A8E /* GoingBackBeforePayment.swift in Sources */,
 				03CCA33C2C088C8F0021875D /* ComboSlider.swift in Sources */,
 				03379AF22C1182FC00F10305 /* BusViewModel.swift in Sources */,
 				FA2523252C12D8EE008216CB /* FilterItemModel.swift in Sources */,
 				7A03499E2C1B1E1E00FE19E0 /* PreferredBusPartnerViewModel1.swift in Sources */,
 				7A0349A12C1B1EA000FE19E0 /* PreferredBusPartnerViewModel.swift in Sources */,
 				030842A02C12D9FD0013EFD7 /* SortByView.swift in Sources */,
+				7A78BC222C21A19300679A8E /* Session Expired.swift in Sources */,
 				03379AF52C1182FC00F10305 /* Model.swift in Sources */,
 				FA1FDE282C11B1E900B90FCA /* Coordinator.swift in Sources */,
 			);
