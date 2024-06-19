@@ -1,4 +1,12 @@
+//
+//  ApiManager.swift
+//  swiftUiExp
+//
+//  Created by Sagar on 19/06/24.
+//
+
 import Foundation
+
 class ApiManager {
     typealias CompletionHandler<T: Decodable> = (Result<T, Error>) -> Void
     private init(){}
