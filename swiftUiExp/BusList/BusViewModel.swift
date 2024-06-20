@@ -26,7 +26,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var sortedBusServices: [BusService] = []
     
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-19")
+            availableBusService(source: 3, destination: 5, date: "2024-06-20")
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -62,6 +62,7 @@ class BusServiceViewModel: ObservableObject {
             }
             do {
                 let decoder = JSONDecoder()
+                print(try? JSONSerialization.jsonObject(with: data))
                 let response = try decoder.decode(BusServiceResponse.self, from: data)
                 let busList = response.services
              //   print(busList)

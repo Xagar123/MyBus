@@ -96,7 +96,7 @@ class Coordinator: ObservableObject {
         case .boardingAndDropingView:
             BoardingAndDroppingListView(viewModel: BusServiceViewModel())
         case .busPartner:
-            PreferredBusPartner(placeholderText: "Search destination", pageType: .preferredBusPartner)
+            CommonFiltersInsightsView(preferredBusPartner: [], placeholderText: "Search destination", pageType: .preferredBusPartner)
         }
     }
     
@@ -114,11 +114,11 @@ class Coordinator: ObservableObject {
         case .filterFullScreen:
             FilterFullScreen()
         case .busPartner:
-            PreferredBusPartner(placeholderText: "Search destination", pageType: .preferredBusPartner)
+            CommonFiltersInsightsView(preferredBusPartner: [], placeholderText: "Search destination", pageType: .preferredBusPartner)
         case .boardingPoint:
-            PreferredBusPartner(placeholderText: "Search location", pageType: .PreferredPickupPoint)
+            CommonFiltersInsightsView(preferredBusPartner: [], placeholderText: "Search location", pageType: .preferredBusPartner)
         case .dropingPoint:
-            PreferredBusPartner(placeholderText: "Go", pageType: .PreferredDroppingPoint)
+            CommonFiltersInsightsView(preferredBusPartner: [], placeholderText: "Search destination", pageType: .preferredBusPartner)
         }
     }
 }
