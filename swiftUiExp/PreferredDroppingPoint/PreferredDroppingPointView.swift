@@ -3,7 +3,7 @@ import SwiftUI
 struct PreferredDroppingPointView: View {
     // MARK: - Properties
     @Binding var PreferredPickupPointViewListData: [BusService]
-    @Binding var selectedItems: [BusService]
+    @Binding var servicesSelectedItem: [BusService] 
     @State private var processedPickupInfos: [String] = []
     @State private var processedBoardingInfo: [String] = []
     @StateObject var viewModel: BusServiceViewModel
@@ -49,6 +49,7 @@ struct PreferredDroppingPointView: View {
             for location in busService.droppingInfo {
                 let locationName = secondWord(from: location)
                 secondLocationNames.append(locationName)
+               
             }
         }
     }
@@ -118,7 +119,7 @@ struct PreferredDroppingPointView_Previews: PreviewProvider {
     static var previews: some View {
         PreferredDroppingPointView(
             PreferredPickupPointViewListData: .constant([]),
-            selectedItems: $selectedItems,
+            servicesSelectedItem: $selectedItems,
             viewModel: BusServiceViewModel()
         )
     }

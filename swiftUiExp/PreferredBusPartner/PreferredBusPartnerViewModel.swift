@@ -1,16 +1,10 @@
-//
-//  PreferredBusPartnerViewModel.swift
-//  swiftUiExp
-//
-//  Created by Sagar on 19/06/24.
-//
-
 import Foundation
 import Combine
 import SwiftUI
-
-
 class PreferredBusPartnerViewModel: ObservableObject {
+    
+    
+    // MARK: - Properties
     @StateObject var viewModels = BusServiceViewModel()
     @Published var PreferredBusPartnerSearchText : String = ""
     @Published var fetchBusPartner: [Operators] = []
@@ -30,9 +24,9 @@ class PreferredBusPartnerViewModel: ObservableObject {
         case .preferredBusPartner:
             fetchBusPartners()
         case .PreferredDroppingPoint:
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-20")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-21")
         case .PreferredPickupPoint :
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-20")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-21")
         case .none:
             break
             
@@ -133,7 +127,6 @@ class PreferredBusPartnerViewModel: ObservableObject {
                             return true
                         }
                         return false
-                        //                    self.searchResult = nil
                     }
                 case .PreferredPickupPoint:
                     self.preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint.filter { operatr in
@@ -141,7 +134,6 @@ class PreferredBusPartnerViewModel: ObservableObject {
                             return true
                         }
                         return false
-                        //                    self.searchResult = nil
                     }
                 case .PreferredDroppingPoint:
                     self.preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint.filter { operatr in
@@ -149,7 +141,6 @@ class PreferredBusPartnerViewModel: ObservableObject {
                             return true
                         }
                         return false
-                        //                    self.searchResult = nil
                     }
                 }
                 

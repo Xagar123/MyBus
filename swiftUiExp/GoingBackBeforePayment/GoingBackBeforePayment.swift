@@ -2,8 +2,9 @@ import SwiftUI
 
 struct GoingBackBeforePayment: View {
     @State private var showSheet = false
-    
+
     var body: some View {
+        // MARK: - Show Sheet Button
         Button("Show Sheet") {
             showSheet = true
         }
@@ -15,9 +16,11 @@ struct GoingBackBeforePayment: View {
     }
 }
 
+// MARK: - Sheet Content View
 struct SheetContent: View {
     var body: some View {
         VStack(spacing: 0) {
+            // MARK: - Close Button
             HStack {
                 Spacer()
                     .padding()
@@ -30,8 +33,12 @@ struct SheetContent: View {
                 }
             }
             Spacer()
+
+            // MARK: - Image
             Image("Frame 2370")
             Spacer()
+
+            // MARK: - Buttons
             VStack(spacing: 12) {
                 Button(action: {
                     // Continue action
@@ -55,7 +62,7 @@ struct SheetContent: View {
     }
 }
 
-
+// MARK: - Preview
 #Preview {
     GoingBackBeforePayment()
 }

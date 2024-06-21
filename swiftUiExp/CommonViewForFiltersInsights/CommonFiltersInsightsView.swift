@@ -3,9 +3,6 @@ import SwiftUI
 struct CommonFiltersInsightsView: View {
     // MARK: - Properties
     @Environment(\.dismiss) var dismiss
-    @State private var isPresentingPreferredBusPartner = false
-    @State private var isPresentingBoardingPoint = false
-    @State private var isPresentingDroppingPoint = false
     @StateObject var viewModel = PreferredBusPartnerViewModel()
     @State var preferredBusPartner = [Any]()
     var placeholderText: String
@@ -13,21 +10,27 @@ struct CommonFiltersInsightsView: View {
     @State var servicesSelectedItem = [BusService]()
     @State var pageType: ScreenType
     @State var textFieldIsTapped = false
-
     // MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
                 HeaderView(pageType: pageType)
+                Color.gray.frame(height: 1 / UIScreen.main.scale)
+                .padding(.bottom, 10)
                 
                 SearchBarView(placeholderText: placeholderText, textFieldIsTapped: $textFieldIsTapped, pageType: $pageType, viewModel: viewModel)
+                
+ 
                 
                 FiltersContentView(pageType: pageType, viewModel: viewModel, selectedItems: $selectedItems, servicesSelectedItem: $servicesSelectedItem)
                 
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
-                                   .padding(.bottom, 10)
+                .padding(.bottom, 10)
+           
                 ContinueButton {
+                    processSelectedData()
                     dismiss()
+                    
                 }
             }
             .onAppear {
@@ -36,6 +39,17 @@ struct CommonFiltersInsightsView: View {
             }
         }
     }
+    func processSelectedData() {
+            switch pageType {
+            case .preferredBusPartner:
+                print("Selected Bus Partners: \(selectedItems)")
+            case .PreferredPickupPoint :
+                print("Selected Pickup Point: \(String(describing: servicesSelectedItem.first?.boardingInfo))")
+            case .PreferredDroppingPoint :
+                print("Selected Dropping Point : \(servicesSelectedItem)")
+                
+            }
+        }
 }
 
 // MARK: - HeaderView
@@ -109,7 +123,6 @@ struct FiltersContentView: View {
     @Binding var selectedItems: [Operators]
     @Binding var servicesSelectedItem: [BusService]
     
-    
     var body: some View {
         VStack {
             switch pageType {
@@ -125,7 +138,7 @@ struct FiltersContentView: View {
                                   
             case .PreferredDroppingPoint:
               
-                PreferredDroppingPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, selectedItems: $servicesSelectedItem, viewModel: viewModel.viewModels)
+                PreferredDroppingPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: viewModel.viewModels)
 
             }
         }
@@ -153,5 +166,5 @@ struct ContinueButton: View {
 
 // MARK: - Preview
 #Preview {
-    CommonFiltersInsightsView(placeholderText: "prefered location", pageType: .PreferredDroppingPoint)
+    CommonFiltersInsightsView(placeholderText: "prefered location", pageType: .preferredBusPartner)
 }
