@@ -16,24 +16,28 @@ struct CommonFiltersInsightsView: View {
         NavigationView {
             VStack {
                 HStack {
+                    
                     Button(action: {
                         self.dismiss()
                     }){
                         Image("Chevron_right")
                     }
-                    .padding()
                     .onTapGesture(perform: {
                         self.dismiss()
                     })
-                    
+                    .padding(20)
                     Text(pageType.rawValue)
+                    //                        .font(.custom("Metropolis", size: 20))
+                        .font(.title3)
                         .fontWeight(.bold)
-                        .font(.custom("Metropolis", size: 20))
                         .foregroundColor(Color(hex: "#EEEEEE"))
+                    Spacer()
+                    
                 }
                
-                .frame(width: 360, height: 60)
-                .padding(.trailing, 150)
+                .frame(maxWidth: .infinity)
+                .frame(height: 60,alignment: .leading)
+                .padding(.trailing)
                 
                 
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
@@ -53,11 +57,12 @@ struct CommonFiltersInsightsView: View {
                 }, label: {
                     Text("Continue")
                 })
-                .frame(width: 328, height: 48, alignment: .center)
+                .frame(width: 350, height: 48, alignment: .center)
                 .background(Color.white)
                 .cornerRadius(8)
                 .foregroundColor(.black)
                 .fontWeight(.bold)
+                .padding(.bottom)
                 .onTapGesture {
                     dismiss()
                 }
@@ -96,7 +101,7 @@ struct SearchBarView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(Color(hex: "#D9D9D9"))
                 .padding(.leading, 10)
-            TextField("Search", text: $viewModel.PreferredBusPartnerSearchText)
+            TextField(placeholderText, text: $viewModel.PreferredBusPartnerSearchText)
                            .textFieldStyle(CustomTextFieldStyle(placeholderColor:Color(hex: " #EEEEEE"), textColor: Color(hex:  "#888888")))
                 .onTapGesture {
                     textFieldIsTapped.toggle()

@@ -24,7 +24,8 @@ struct PreferredBoardingPointView: View {
                             .foregroundColor(Color(hex: "#EEEEEE"))
                         Spacer()
                         Image(systemName: determineImageName(for: location))
-                            .foregroundColor(Color(hex: "#EEEEEE"))
+                            .renderingMode(.template)
+                            .foregroundColor(Color(hex: "#888888"))
                             .onTapGesture {
                                 handleSelection(for: location)
                             }

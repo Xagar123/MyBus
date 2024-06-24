@@ -30,7 +30,8 @@ struct CreateListView: View {
                         .foregroundColor(Color(hex: "#EEEEEE"))
                     Spacer()
                     Image(systemName: selectedItems.contains(where: { $0.operator_id == item.operator_id }) ? "checkmark.square.fill" : "square")
-                        .foregroundColor(Color(hex: "#EEEEEE"))
+                        .renderingMode(.template)
+                        .foregroundColor(Color(hex: "#888888"))
                 }
             }
             .padding(.vertical, 10)
