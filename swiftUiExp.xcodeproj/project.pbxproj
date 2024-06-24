@@ -23,7 +23,7 @@
 		03CDEBEF2C0487E9003A075D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03CDEBEE2C0487E9003A075D /* Preview Assets.xcassets */; };
 		7A5638342C2400E60055E073 /* PreferredBusPartnerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5638332C2400E60055E073 /* PreferredBusPartnerModel.swift */; };
 		7A5638382C2405BE0055E073 /* PreferredBusPartnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5638372C2405BE0055E073 /* PreferredBusPartnerView.swift */; };
-		7A56383A2C2408600055E073 /* PreferredDroppingPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5638392C2408600055E073 /* PreferredDroppingPointView.swift */; };
+		7A56383A2C2408600055E073 /* PreferredDroppingAndPickUpPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5638392C2408600055E073 /* PreferredDroppingAndPickUpPointView.swift */; };
 		7A56383C2C2408930055E073 /* PreferredPickupPointView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A56383B2C2408930055E073 /* PreferredPickupPointView.swift */; };
 		7A56383E2C24101D0055E073 /* CommonFiltersInsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A56383D2C24101D0055E073 /* CommonFiltersInsightsView.swift */; };
 		7A78BC1E2C21A0F200679A8E /* SeatLayoutNotAvailable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A78BC1D2C21A0F200679A8E /* SeatLayoutNotAvailable.swift */; };
@@ -58,7 +58,7 @@
 		03CDEBEE2C0487E9003A075D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7A5638332C2400E60055E073 /* PreferredBusPartnerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredBusPartnerModel.swift; sourceTree = "<group>"; };
 		7A5638372C2405BE0055E073 /* PreferredBusPartnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredBusPartnerView.swift; sourceTree = "<group>"; };
-		7A5638392C2408600055E073 /* PreferredDroppingPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredDroppingPointView.swift; sourceTree = "<group>"; };
+		7A5638392C2408600055E073 /* PreferredDroppingAndPickUpPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredDroppingAndPickUpPointView.swift; sourceTree = "<group>"; };
 		7A56383B2C2408930055E073 /* PreferredPickupPointView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferredPickupPointView.swift; sourceTree = "<group>"; };
 		7A56383D2C24101D0055E073 /* CommonFiltersInsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFiltersInsightsView.swift; sourceTree = "<group>"; };
 		7A78BC1D2C21A0F200679A8E /* SeatLayoutNotAvailable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatLayoutNotAvailable.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		7A56382D2C23FD660055E073 /* PreferredDroppingPoint */ = {
 			isa = PBXGroup;
 			children = (
-				7A5638392C2408600055E073 /* PreferredDroppingPointView.swift */,
+				7A5638392C2408600055E073 /* PreferredDroppingAndPickUpPointView.swift */,
 			);
 			path = PreferredDroppingPoint;
 			sourceTree = "<group>";
@@ -344,7 +344,7 @@
 				7A78BC1E2C21A0F200679A8E /* SeatLayoutNotAvailable.swift in Sources */,
 				7A78BC202C21A14900679A8E /* SeatNotAvailable.swift in Sources */,
 				03379AF12C1182FC00F10305 /* BusListView.swift in Sources */,
-				7A56383A2C2408600055E073 /* PreferredDroppingPointView.swift in Sources */,
+				7A56383A2C2408600055E073 /* PreferredDroppingAndPickUpPointView.swift in Sources */,
 				FA7542B82C206304004B6B95 /* CoordinatorView.swift in Sources */,
 				7A5638342C2400E60055E073 /* PreferredBusPartnerModel.swift in Sources */,
 				FA75AE472C22D4F500587B37 /* TicketDetailsView.swift in Sources */,

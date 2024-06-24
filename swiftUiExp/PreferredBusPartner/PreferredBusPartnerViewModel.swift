@@ -15,6 +15,8 @@ class PreferredBusPartnerViewModel: ObservableObject {
     @Published var preferredBusPartnerSearchResult : [Operators] = []
     @Published var preferredDroppingPickUPPointSearchResult : [BusService] = []
     @State var selectedItems  =  [Operators]()
+    @Published var searchInDroppingAndPickup = [String]()
+    @Published var UniqueLocations = [String]()
     var pageType : ScreenType?
 
     
@@ -24,9 +26,9 @@ class PreferredBusPartnerViewModel: ObservableObject {
         case .preferredBusPartner:
             fetchBusPartners()
         case .PreferredDroppingPoint:
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-21")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-24")
         case .PreferredPickupPoint :
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-21")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-24")
         case .none:
             break
             
@@ -129,15 +131,15 @@ class PreferredBusPartnerViewModel: ObservableObject {
                         return false
                     }
                 case .PreferredPickupPoint:
-                    self.preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint.filter { operatr in
-                        if operatr.boardingInfo.contains(searchText) {
+                    self.searchInDroppingAndPickup = UniqueLocations.filter { str in
+                        if str.contains(searchText) {
                             return true
                         }
                         return false
                     }
                 case .PreferredDroppingPoint:
-                    self.preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint.filter { operatr in
-                        if operatr.droppingInfo.contains(searchText) {
+                    self.searchInDroppingAndPickup = UniqueLocations.filter { str in
+                        if str.contains(searchText) {
                             return true
                         }
                         return false
