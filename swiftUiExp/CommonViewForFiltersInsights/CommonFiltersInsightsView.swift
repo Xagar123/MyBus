@@ -10,11 +10,32 @@ struct CommonFiltersInsightsView: View {
     @State var servicesSelectedItem = [BusService]()
     @State var pageType: ScreenType
     @State var textFieldIsTapped = false
+ 
     // MARK: - Body
     var body: some View {
         NavigationView {
             VStack {
-                HeaderView(pageType: pageType)
+                HStack {
+                    Button(action: {
+                        self.dismiss()
+                    }){
+                        Image("Chevron_right")
+                    }
+                    .padding()
+                    .onTapGesture(perform: {
+                        self.dismiss()
+                    })
+                    
+                    Text(pageType.rawValue)
+                        .fontWeight(.bold)
+                        .font(.custom("Metropolis", size: 20))
+                        .foregroundColor(Color(hex: "#EEEEEE"))
+                }
+               
+                .frame(width: 360, height: 60)
+                .padding(.trailing, 150)
+                
+                
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
                 .padding(.bottom, 10)
                 
@@ -26,16 +47,27 @@ struct CommonFiltersInsightsView: View {
                 
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
                 .padding(.bottom, 10)
-           
-                ContinueButton {
-                    processSelectedData()
+                Button(action: {
                     dismiss()
-                    
+                    processSelectedData()
+                }, label: {
+                    Text("Continue")
+                })
+                .frame(width: 328, height: 48, alignment: .center)
+                .background(Color.white)
+                .cornerRadius(8)
+                .foregroundColor(.black)
+                .fontWeight(.bold)
+                .onTapGesture {
+                    dismiss()
                 }
+                
             }
+            .background(Color(hex: "#111111"))
             .onAppear {
                 viewModel.pageType = pageType
                 viewModel.fetchData()
+
             }
         }
     }
@@ -44,35 +76,12 @@ struct CommonFiltersInsightsView: View {
             case .preferredBusPartner:
                 print("Selected Bus Partners: \(selectedItems)")
             case .PreferredPickupPoint :
-                print("Selected Pickup Point: \(String(describing: servicesSelectedItem.first?.boardingInfo))")
+                print("Selected Pickup Point: \(servicesSelectedItem)")
             case .PreferredDroppingPoint :
                 print("Selected Dropping Point : \(servicesSelectedItem)")
                 
             }
         }
-}
-
-// MARK: - HeaderView
-struct HeaderView: View {
-    var pageType: ScreenType
-    @Environment(\.dismiss) var dismiss
-    
-    var body: some View {
-        HStack {
-            Button(action: {
-                dismiss()
-            }) {
-                Image("Chevron_right")
-            }
-            .padding()
-            
-            Text(pageType.rawValue)
-                .fontWeight(.bold)
-                .font(.custom("Metropolis", size: 20))
-        }
-        .frame(width: 360, height: 60)
-        .padding(.trailing, 150)
-    }
 }
 
 // MARK: - SearchBarView
@@ -87,9 +96,8 @@ struct SearchBarView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(Color(hex: "#D9D9D9"))
                 .padding(.leading, 10)
-            
-            TextField(placeholderText, text: $viewModel.PreferredBusPartnerSearchText)
-                .foregroundColor(.white)
+            TextField("Search", text: $viewModel.PreferredBusPartnerSearchText)
+                           .textFieldStyle(CustomTextFieldStyle(placeholderColor:Color(hex: " #EEEEEE"), textColor: Color(hex:  "#888888")))
                 .onTapGesture {
                     textFieldIsTapped.toggle()
                 }
@@ -105,14 +113,16 @@ struct SearchBarView: View {
                 .foregroundColor(.white)
             }
         }
-        .frame(width: 328, height: 56)
-        .padding(5)
+        .frame(height: 56)
+       
         .background(Color(hex: "#181818"))
         .cornerRadius(10)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
                 .stroke(textFieldIsTapped ? Color(hex: "#EEEEEE") : Color(hex: "#333333"), lineWidth: 1)
         )
+        .padding(.leading, 20)
+        .padding(.trailing,20)
     }
 }
 
@@ -134,37 +144,33 @@ struct FiltersContentView: View {
             case .PreferredPickupPoint:
                                   
                  
-                PreferredBoardingPointView(listData: $viewModel.preferredDroppingPickUPPointSearchResult, selectedItems: $servicesSelectedItem)
+                PreferredDroppingAndPickUpPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: viewModel.viewModels, viewModels: viewModel)
                                   
             case .PreferredDroppingPoint:
               
-                PreferredDroppingPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: viewModel.viewModels)
+                PreferredDroppingAndPickUpPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: viewModel.viewModels, viewModels: viewModel)
 
             }
         }
     }
 }
+import SwiftUI
 
-// MARK: - ContinueButton
-struct ContinueButton: View {
-    var action: () -> Void
+struct CustomTextFieldStyle: TextFieldStyle {
+    var placeholderColor: Color
+    var textColor: Color
     
-    var body: some View {
-        Button("Continue") {
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        configuration
+            .foregroundColor(textColor) // Set the text color
             
-        }
-        .frame(width: 328, height: 48, alignment: .center)
-        .background(Color.white)
-        .cornerRadius(8)
-        .foregroundColor(.black)
-        .fontWeight(.bold)
-        .onTapGesture {
-            action()
-        }
+            .overlay(
+                configuration
+                    .foregroundColor(placeholderColor) // Set the placeholder color
+            )
     }
 }
-
 // MARK: - Preview
 #Preview {
-    CommonFiltersInsightsView(placeholderText: "prefered location", pageType: .preferredBusPartner)
+    CommonFiltersInsightsView(placeholderText: "prefered location", pageType: .PreferredPickupPoint)
 }
