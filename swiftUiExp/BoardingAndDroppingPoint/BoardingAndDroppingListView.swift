@@ -13,9 +13,10 @@ struct BoardingAndDroppingListView: View {
     @State var isPickupSelected: Bool = false
     @State var isDropSelected: Bool = false
     @State var onFirstPage: Bool = true
+    @State var screenTitle: String = "Select pickup & drop"
     var body: some View {
         VStack(spacing: 0){
-            topBar()
+            topBar(title: $screenTitle)
             pickupDropSlide(isPickupSelected: $isPickupSelected, isDropSelected: $isDropSelected, onFirstPage: $onFirstPage).padding(.top,32)
             searchBar(viewModel: viewModel, text: $textFieldText, onFirstPage: $onFirstPage).padding(.top,32)
             pickupDropList(viewModel: viewModel, isPickupSelected: $isPickupSelected, isDropSelected: $isDropSelected, onFirstPage: $onFirstPage).padding(.top,16)
@@ -107,14 +108,15 @@ struct pickupDropSlide: View {
 }
 
 struct topBar: View {
+    @Binding var title: String
     var body: some View {
         HStack(){
             Image(systemName: "chevron.backward")
                 .resizable()
                 .frame(width: 12,height: 20)
                 .foregroundStyle(Color.white)
-            Text("Select pickup & drop")
-                .font(.system(size: 20,weight: .bold))
+            Text(title)
+                .font(.bold(size: 20))
                 .padding(.leading, 20)
                 .foregroundStyle(Color.white)
             Spacer()
@@ -137,9 +139,9 @@ struct searchBar: View {
                 TextField("", text: $text, prompt: Text(onFirstPage ? "Search pickup point" : "Search drop point").foregroundColor(Color(hex: "#888888")))
                     .padding(.leading,32)
                     .foregroundStyle(Color.white)
-                    .onChange(of: text, { oldValue, newValue in
-                        viewModel.filterPickupAndDropLocation(with: newValue, onFirstPage: onFirstPage)
-                    })
+//                    .onChange(of: text, { oldValue, newValue in
+//                        viewModel.filterPickupAndDropLocation(with: newValue, onFirstPage: onFirstPage)
+//                    })
 //                    .onChange(of: text) { newValue in
 //                        // Filter items based on the new search text
 //                        
@@ -242,6 +244,7 @@ struct bottomContinueBar: View {
     var body: some View {
         Rectangle()
             .frame(height: 72)
+            .foregroundStyle(Color(hex: "#111111"))
             .overlay{
                 HStack{
                     VStack(alignment: .leading){

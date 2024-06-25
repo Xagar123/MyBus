@@ -136,10 +136,10 @@ struct BudgetRangeView: View {
                                     .keyboardType(.numberPad)
                                     .foregroundColor(.white)
                                     .background(Color.clear)
-                                    .onChange(of: price) { oldValue, newValue in
-                                        let value = (Int(newValue) ?? 500) - 500
-                                        pos = CGFloat( value / 4500)
-                                    }
+//                                    .onChange(of: price) { oldValue, newValue in
+//                                        let value = (Int(newValue) ?? 500) - 500
+//                                        pos = CGFloat( value / 4500)
+//                                    }
                                     
                                     
                             }

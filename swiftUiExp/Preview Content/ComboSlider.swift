@@ -196,9 +196,9 @@ func convertMaxPriceToPos(price: String, minPrice: String, posOne: CGFloat) -> C
                                         .keyboardType(.numberPad)
                                         .foregroundColor(.white)
                                         .background(Color.clear)
-                                        .onChange(of: price) { oldValue, newValue in
-                                            callBack()
-                                        }
+//                                        .onChange(of: price) { oldValue, newValue in
+//                                            callBack()
+//                                        }
                                         .onSubmit {
                                             callBack()
                                         }
