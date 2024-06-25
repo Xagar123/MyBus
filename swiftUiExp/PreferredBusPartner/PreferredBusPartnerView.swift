@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PreferredBusPartnerView: View {
     // MARK: - Properties
+    
     @ObservedObject var viewModel: PreferredBusPartnerViewModel
     @Binding var selectedItems: [Operators]
 
@@ -24,8 +25,13 @@ struct CreateListView: View {
             VStack {
                 HStack {
                     Text("\(item.operater_name)")
+                        .fontWeight(.medium)
+                        .font(.custom("Metropolis", size: 16))
+                        .foregroundColor(Color(hex: "#EEEEEE"))
                     Spacer()
                     Image(systemName: selectedItems.contains(where: { $0.operator_id == item.operator_id }) ? "checkmark.square.fill" : "square")
+                        .renderingMode(.template)
+                        .foregroundColor(Color(hex: "#888888"))
                 }
             }
             .padding(.vertical, 10)
@@ -36,7 +42,12 @@ struct CreateListView: View {
                     selectedItems.append(item)
                 }
             }
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
+        
+        .background(Color(hex: "#111111"))
+    
     }
 }

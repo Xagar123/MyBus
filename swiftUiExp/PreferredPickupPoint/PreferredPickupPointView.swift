@@ -13,17 +13,19 @@ struct PreferredBoardingPointView: View {
     @State private var isDropSelected: Bool = false
     @State private var locationText: String = ""
     @State private var secondLocationNames: [String] = []
-    @State private var uniqueLocationNames: Set<String> = []
-    
+    @ObservedObject var viewModel: PreferredBusPartnerViewModel
     // MARK: - Body
     var body: some View {
         List {
-            ForEach(Array(uniqueLocationNames), id: \.self) { location in
+            ForEach(Array(viewModel.searchInDroppingAndPickup), id: \.self) { location in
                 VStack {
                     HStack {
                         Text(location)
+                            .foregroundColor(Color(hex: "#EEEEEE"))
                         Spacer()
                         Image(systemName: determineImageName(for: location))
+                            .renderingMode(.template)
+                            .foregroundColor(Color(hex: "#888888"))
                             .onTapGesture {
                                 handleSelection(for: location)
                             }
@@ -31,13 +33,17 @@ struct PreferredBoardingPointView: View {
                 }
                 .padding(.vertical, 10)
             }
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
         }
+        .background(Color(hex: "#111111"))
         .listStyle(.plain)
         .listRowSeparator(.hidden)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 populateFirstWord()
-                uniqueLocationNames = Set(secondLocationNames)
+                viewModel.UniqueLocations = Array(Set(secondLocationNames))
+                viewModel.searchInDroppingAndPickup = viewModel.UniqueLocations
             }
         }
     }
@@ -99,7 +105,7 @@ struct PreferredBoardingView: View {
     var body: some View {
         PreferredBoardingPointView(
             listData: $ViewModel.preferredDroppingPickUPPointSearchResult,
-            selectedItems: $selectedItems
+            selectedItems: $selectedItems, viewModel: ViewModel
         )
     }
 }
@@ -110,7 +116,7 @@ struct PreferredBoardingPointView_Previews: PreviewProvider {
     static var previews: some View {
         PreferredBoardingPointView(
             listData: .constant([]),
-            selectedItems: $selectedItems
+            selectedItems: $selectedItems, viewModel: PreferredBusPartnerViewModel()
         )
     }
 }

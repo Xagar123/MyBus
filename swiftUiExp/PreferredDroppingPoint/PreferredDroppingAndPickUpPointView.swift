@@ -1,6 +1,7 @@
 import SwiftUI
+import Combine
 
-struct PreferredDroppingPointView: View {
+struct PreferredDroppingAndPickUpPointView: View {
     // MARK: - Properties
     @Binding var PreferredPickupPointViewListData: [BusService]
     @Binding var servicesSelectedItem: [BusService] 
@@ -13,32 +14,41 @@ struct PreferredDroppingPointView: View {
     @State private var pickupPointIndex: [String] = []
     @State private var dropPointIndex: [String] = []
     @State private var secondLocationNames: [String] = []
-    @State private var uniqueLocationNames: Set<String> = []
     
+    @ObservedObject var viewModels : PreferredBusPartnerViewModel
     // MARK: - Body
     var body: some View {
         List {
-            ForEach(Array(uniqueLocationNames), id: \.self) { location in
+            ForEach(viewModels.searchInDroppingAndPickup, id: \.self) { location in
                 VStack {
                     HStack {
                         Text(location)
+                            .foregroundColor(Color(hex: "#EEEEEE"))
                         Spacer()
                         Image(systemName: determineImageName(for: location))
+                            .renderingMode(.template)
+                            .foregroundColor(Color(hex: "#888888"))
                             .onTapGesture {
                                 handleSelection(for: location)
                             }
                     }
                 }
                 .padding(.vertical, 10)
+                
             }
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
+
         }
+        .background(Color(hex: "#111111"))
         .listStyle(.plain)
         .listRowSeparator(.hidden)
         .padding(.vertical, 10)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 populateSecondLocationNames()
-                uniqueLocationNames = Set(secondLocationNames)
+                viewModels.UniqueLocations = Array(Set(secondLocationNames))
+                viewModels.searchInDroppingAndPickup = viewModels.UniqueLocations
             }
         }
     }
@@ -101,13 +111,13 @@ struct PreferredDroppingPointView: View {
 
 struct PreferredDroppingView: View {
     @ObservedObject var viewModel: BusServiceViewModel
-    @ObservedObject var ViewModels: PreferredBusPartnerViewModel
+    @ObservedObject var viewModels: PreferredBusPartnerViewModel
     @Binding var selectedItems: [BusService]
     
     var body: some View {
         PreferredBoardingPointView(
-            listData: $ViewModels.preferredDroppingPickUPPointSearchResult,
-            selectedItems: $selectedItems
+            listData: $viewModels.preferredDroppingPickUPPointSearchResult,
+            selectedItems: $selectedItems, viewModel: viewModels
         )
     }
 }
@@ -117,10 +127,10 @@ struct PreferredDroppingView: View {
 struct PreferredDroppingPointView_Previews: PreviewProvider {
     @State static var selectedItems = [BusService]()
     static var previews: some View {
-        PreferredDroppingPointView(
+        PreferredDroppingAndPickUpPointView(
             PreferredPickupPointViewListData: .constant([]),
             servicesSelectedItem: $selectedItems,
-            viewModel: BusServiceViewModel()
+            viewModel: BusServiceViewModel(), viewModels: PreferredBusPartnerViewModel()
         )
     }
 }

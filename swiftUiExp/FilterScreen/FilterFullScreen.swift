@@ -231,7 +231,7 @@ struct BusPartnerView: View {
                 CommonFiltersInsightsView(placeholderText: "Search location", pageType: .PreferredPickupPoint)
             }
             .fullScreenCover(isPresented: $isPresentingDroppingPoint) {
-                CommonFiltersInsightsView(placeholderText: "Go", pageType: .PreferredDroppingPoint)
+                CommonFiltersInsightsView(placeholderText: "Search location", pageType: .PreferredDroppingPoint)
                 
             }
         
