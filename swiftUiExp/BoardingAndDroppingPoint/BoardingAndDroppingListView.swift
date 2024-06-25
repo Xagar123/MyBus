@@ -224,7 +224,7 @@ struct pickupDropList: View {
                 .listRowBackground(Color(hex: "#111111"))
         }.listStyle(.plain)
             .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                     viewModel.pickupPointList =  parsePickupLocations(from: viewModel.busServices.count > 0 ? viewModel.busServices[viewModel.selectedBusIndex].boardingInfo : [String]())
                     viewModel.copyPickupPointList = viewModel.pickupPointList
                     print("=======")

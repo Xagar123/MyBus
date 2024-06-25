@@ -13,7 +13,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var filterBusList: [BusService] = []
     @Published var errorMessage: String?
     @Published var hasFetchedData = false
-    var selectedBusIndex : Int = 1
+    var selectedBusIndex : Int = 7
     @Published var pickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     @Published var dropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     var copyPickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
@@ -26,7 +26,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var sortedBusServices: [BusService] = []
     
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-21")
+            availableBusService(source: 3, destination: 5, date: "2024-06-25")
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -62,6 +62,7 @@ class BusServiceViewModel: ObservableObject {
             }
             do {
                 let decoder = JSONDecoder()
+                print(try? JSONSerialization.jsonObject(with: data))
                 let response = try decoder.decode(BusServiceResponse.self, from: data)
                 let busList = response.services
              //   print(busList)

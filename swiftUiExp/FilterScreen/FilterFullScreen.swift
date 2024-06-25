@@ -224,14 +224,14 @@ struct BusPartnerView: View {
                 }
             }
             .fullScreenCover(isPresented: $isPresentingPreferredBusPartner) {
-                PreferredBusPartner(placeholderText: "Search destination", pageType: .preferredBusPartner)
+                CommonFiltersInsightsView(placeholderText: "Search destination", pageType: .preferredBusPartner)
             }
         
             .fullScreenCover(isPresented: $isPresentingBoardingPoint) {
-                PreferredBusPartner(placeholderText: "Search location", pageType: .PreferredPickupPoint)
+                CommonFiltersInsightsView(placeholderText: "Search location", pageType: .PreferredPickupPoint)
             }
             .fullScreenCover(isPresented: $isPresentingDroppingPoint) {
-                PreferredBusPartner(placeholderText: "Go", pageType: .PreferredDroppingPoint)
+                CommonFiltersInsightsView(placeholderText: "Go", pageType: .PreferredDroppingPoint)
                 
             }
         

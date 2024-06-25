@@ -116,16 +116,9 @@ struct PaymentDetailView: View {
                         RoundedRectangle(cornerRadius: 20)
                             .frame(height: 350)
                         .foregroundColor(Color(hex: "#222222"))
-//                    VStack {
-                       
-                        ExtractedView()
-                        
-                        
-//                        ExtractedView()
 
-//                    }
-                       
-                           
+                        ExtractedView()
+                      
 
                 }
                 .padding(.horizontal)
@@ -149,12 +142,10 @@ struct ExtractedView: View {
                         .foregroundColor(Color(hex: "#EEEEEE"))
                         .font(.title3)
                         .fontWeight(.bold)
+                    
                     Text("23rd Sept, Fri")
                         .foregroundColor(Color(hex: "#888888"))
-                    
-                   
-                    
-                    
+           
                 }
                 .padding(.leading,16)
                 
