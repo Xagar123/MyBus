@@ -186,32 +186,58 @@ struct DepartureTimeView: View {
 }
 
 struct BusPartnerView: View {
+       @State private var isPresentingPreferredBusPartner = false
+       @State private var isPresentingBoardingPoint = false
+       @State private var isPresentingDroppingPoint = false
     var title: String
     var image: String
     var body: some View {
-            RoundedRectangle(cornerRadius: 8)
+        RoundedRectangle(cornerRadius: 8)
             .fill(Color(hex: "#181818"))
-                .frame(height: 56)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "#333333"), lineWidth: 1)
-                        .padding(.leading, 16)
-                        .padding(.trailing, 16)
-                    HStack{
-                        Text(title)
-                            .foregroundColor(Color.white)
-                        Spacer()
-                        Image(systemName: image)
-                            .foregroundColor(Color.white)
-                        
-                    }.padding(.horizontal, 35)
+            .frame(height: 56)
+            .padding(.leading, 16)
+            .padding(.trailing, 16)
+            .overlay {
+                RoundedRectangle(cornerRadius: 8).stroke(Color(hex: "#333333"), lineWidth: 1)
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                HStack{
+                    Text(title)
+                        .foregroundColor(Color.white)
+                    Spacer()
+                    Image(systemName: image)
+                        .foregroundColor(Color.white)
+                    
+                }.padding(.horizontal, 35)
+            }
+            .onTapGesture {
+                if title == "Bus Partner"{
+                    isPresentingPreferredBusPartner = true
                 }
-           
+                
+                else if title == "Boarding Point"{
+                    isPresentingBoardingPoint = true
+                    
+                }
+                else if title == "Dropping Point"{
+                    isPresentingDroppingPoint = true
+                }
+            }
+            .fullScreenCover(isPresented: $isPresentingPreferredBusPartner) {
+                CommonFiltersInsightsView(placeholderText: "Search destination", pageType: .preferredBusPartner)
+            }
+        
+            .fullScreenCover(isPresented: $isPresentingBoardingPoint) {
+                CommonFiltersInsightsView(placeholderText: "Search location", pageType: .PreferredPickupPoint)
+            }
+            .fullScreenCover(isPresented: $isPresentingDroppingPoint) {
+                CommonFiltersInsightsView(placeholderText: "Search location", pageType: .PreferredDroppingPoint)
+                
+            }
+        
         
     }
 }
-
 
 
 

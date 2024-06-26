@@ -13,7 +13,8 @@ struct swiftUiExpApp: App {
 
     var body: some Scene {
         WindowGroup {
-            BoardingAndDroppingListView(viewModel: BusServiceViewModel())
+//            BoardingAndDroppingListView(viewModel: BusServiceViewModel())
+            CoordinatorView()
         }
     }
 }

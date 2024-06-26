@@ -24,6 +24,7 @@ struct BoardingAndDroppingListView: View {
             bottomContinueBar(isPickupSelected: $isPickupSelected, isDropSelected: $isDropSelected)
             
         }.background(Color(hex: "#111111"))
+        .navigationBarHidden(true)
     }
 }
 
@@ -109,14 +110,21 @@ struct pickupDropSlide: View {
 
 struct topBar: View {
     @Binding var title: String
+    
+    @EnvironmentObject private var coordinator: Coordinator
+    
     var body: some View {
         HStack(){
-            Image(systemName: "chevron.backward")
-                .resizable()
-                .frame(width: 12,height: 20)
-                .foregroundStyle(Color.white)
-            Text(title)
-                .font(.bold(size: 20))
+            Button(action: {
+                coordinator.pop(delay: 0.2)
+            }, label: {
+                Image(systemName: "chevron.backward")
+                    .resizable()
+                    .frame(width: 12,height: 20)
+                    .foregroundStyle(Color.white)
+            })
+            Text("Select pickup & drop")
+                .font(.system(size: 20,weight: .bold))
                 .padding(.leading, 20)
                 .foregroundStyle(Color.white)
             Spacer()
@@ -136,26 +144,26 @@ struct searchBar: View {
             .overlay {
                 RoundedRectangle(cornerRadius: 12).stroke(lineWidth: 1).fill(Color(hex: "333333"))
                     .padding(.horizontal,16)
-                TextField("", text: $text, prompt: Text(onFirstPage ? "Search pickup point" : "Search drop point").foregroundColor(Color(hex: "#888888")))
-                    .padding(.leading,32)
-                    .foregroundStyle(Color.white)
-//                    .onChange(of: text, { oldValue, newValue in
-//                        viewModel.filterPickupAndDropLocation(with: newValue, onFirstPage: onFirstPage)
-//                    })
-//                    .onChange(of: text) { newValue in
-//                        // Filter items based on the new search text
-//                        
-//                    }
-                    .onTapGesture {
-                        
-                    }
+                if #available(iOS 17.0, *) {
+                    TextField("", text: $text, prompt: Text(onFirstPage ? "Search pickup point" : "Search drop point").foregroundColor(Color(hex: "#888888")))
+                        .padding(.leading,32)
+                        .foregroundStyle(Color.white)
+                        .onChange(of: text, { oldValue, newValue in
+                            viewModel.filterPickupAndDropLocation(with: newValue, onFirstPage: onFirstPage)
+                        })
+                        .onTapGesture {
+                            
+                        }
+                } else {
+                    // Fallback on earlier versions
+                }
                 
             }
     }
 }
 
 struct pickupDropList: View {
-    @ObservedObject var viewModel: BusServiceViewModel
+    @StateObject var viewModel: BusServiceViewModel
     @Binding var isPickupSelected: Bool
     @Binding var isDropSelected: Bool
     @Binding var onFirstPage: Bool
@@ -222,7 +230,7 @@ struct pickupDropList: View {
                 .listRowBackground(Color(hex: "#111111"))
         }.listStyle(.plain)
             .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     viewModel.pickupPointList =  parsePickupLocations(from: viewModel.busServices.count > 0 ? viewModel.busServices[viewModel.selectedBusIndex].boardingInfo : [String]())
                     viewModel.copyPickupPointList = viewModel.pickupPointList
                     print("=======")
@@ -239,6 +247,8 @@ struct pickupDropList: View {
 
 
 struct bottomContinueBar: View {
+    @EnvironmentObject var coordinator:Coordinator
+    
     @Binding var isPickupSelected: Bool
     @Binding var isDropSelected: Bool
     var body: some View {
@@ -281,6 +291,9 @@ struct bottomContinueBar: View {
                         }
                         .padding(.trailing,16)
                         .onTapGesture {
+                            if isDropSelected && isPickupSelected {
+                                coordinator.navigateToScreen(.passengerBasicDetail)
+                            }
                             
                         }
                     

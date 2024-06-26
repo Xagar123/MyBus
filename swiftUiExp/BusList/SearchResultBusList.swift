@@ -8,23 +8,19 @@
 import SwiftUI
 
 struct SearchResultBusList: View {
-    @ObservedObject var viewModel = BusServiceViewModel()
+    
+    @StateObject var viewModel = BusServiceViewModel()
     @State var sortByTap = false
+    @State private var delayPassed = false
     
     var body: some View {
         VStack{
-//            VStack {
                 CustomHeaderView()
                     .padding(.top,8)
-//                CustomFilterView(sortByTapped: $sortByTap)
                     .padding(.top,16)
             HorizintalFilterView(busViewModel: self.viewModel, shortByTapped:$sortByTap)
                     .padding(.top,16)
-//                Spacer()
-//            }
-//            .frame(height: 128)
-//            .padding(.horizontal, 16)
-//            .background(Color(hex:"#111111"))
+
            
             if viewModel.hasFetchedData {
                 BusListView(viewModel: viewModel)
@@ -35,12 +31,25 @@ struct SearchResultBusList: View {
                             SortByView(viewModel: self.viewModel, onTapRemove: $sortByTap)
                         }
                     }
-            }else {
+            }
+            else if delayPassed {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                    .scaleEffect(1.5)
+                    .padding(.top, 120)
+            } else {
                 EmptyBusListView()
                     .padding(.top,120)
             }
+           
         }
         .background(Color(hex:"#111111"))
+        .navigationBarHidden(true)
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                delayPassed = true
+            }
+        }
     }
 }
 
@@ -52,6 +61,9 @@ struct SearchResultBusList: View {
 
 
 struct CustomHeaderView: View {
+    
+    @EnvironmentObject var coordinator: Coordinator
+    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -68,6 +80,9 @@ struct CustomHeaderView: View {
                     Image(uiImage: UIImage(named: "backBtnArrow")!)
                         .frame(width: 24, height: 24)
                         .padding(.leading,12)
+                        .onTapGesture {
+                            coordinator.pop()
+                        }
                     
                     VStack(alignment: .leading) {
                         Text("Bengaluru to Goa")
@@ -97,6 +112,7 @@ struct CustomHeaderView: View {
 struct CircleFilterView: View {
     
     @EnvironmentObject var coordinator: Coordinator
+    
     @State private var isPresentingModal = false
     
     var body: some View {
@@ -129,13 +145,10 @@ struct CircleFilterView: View {
         .onTapGesture {
             isPresentingModal = true
 //            coordinator.navigate(to: .FilterView)
+            coordinator.presentSheet(.filterScreen)
+
            
         }
-        .sheet(isPresented: $isPresentingModal, content: {
-            FilterFullScreen()
-                .background(Color.clear)
-        })
-        
         .padding(.trailing,0)
         
     }
@@ -204,12 +217,15 @@ struct CustomFilterView: View {
     
 struct BusListView: View {
     
+    @EnvironmentObject private var coordinator: Coordinator
     @ObservedObject var viewModel : BusServiceViewModel
+    @State private var isSheetPresented = false
    
     var body: some View {
-        List {
+        ScrollView {
             ForEach($viewModel.sortedBusServices) { item in
                 VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading){
                     HStack {
                         VStack(alignment: .leading,spacing: 0) {
                             Text(item.travelerAgentName.wrappedValue)
@@ -260,15 +276,15 @@ struct BusListView: View {
                         VStack(alignment:.leading) {
                             HStack {
                                 Text(viewModel.convertTo24HourFormat(time: item.startTime.wrappedValue)!)
-//                                    .font(.title2)
+                                //                                    .font(.title2)
                                     .font(.system(size: 24))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color(hex: "##EEEEEE"))
-                               
+                                
                                 Image("pointAtoB")
                                 
                                 Text(viewModel.convertTo24HourFormat(time: item.arrTime.wrappedValue)!)
-//                                    .font(.title2)
+                                //                                    .font(.title2)
                                     .foregroundColor(Color(hex: "##EEEEEE"))
                                     .font(.system(size: 24))
                                     .fontWeight(.bold)
@@ -309,6 +325,10 @@ struct BusListView: View {
                         .fill(Color.gray)
                         .frame(maxWidth: .infinity, maxHeight: 0.5)
                     //                .padding(.top,8)
+                }
+//                .onTapGesture {
+//                    coordinator.navigateToScreen(.boardingAndDropingView)
+//                }
                     
                     HStack {
                         
@@ -318,9 +338,20 @@ struct BusListView: View {
                             .foregroundColor(Color(hex: "##EEEEEE"))
                         
                         Spacer()
-                        Text("More info")
-                            .padding(.trailing,12)
-                            .foregroundColor(Color.blue)
+                        Button(action: {
+                            
+                            print("More info tapped")
+                            isSheetPresented.toggle()
+                                
+                        }) {
+                            Text("More info")
+                                .padding(.trailing, 12)
+                                .foregroundColor(Color.blue)
+                        }
+                        .sheet(isPresented: $isSheetPresented) {
+                            BusMoreInfoView()
+                                .presentationDetents([.medium, .large])
+                        }
                     }
                     .padding(.leading,12)
                     .padding(.bottom,18)
@@ -338,11 +369,14 @@ struct BusListView: View {
         .animation(.easeInOut(duration: 0.3).delay(0.1), value: viewModel.sortedBusServices)
 //        .animation(.easeInOut)
         .scrollIndicators(.hidden)
-        .listStyle(PlainListStyle())
+        .listStyle(GroupedListStyle())
         .padding(.horizontal,16)
         .background(Color(hex:"#111111"))
         .listRowInsets(EdgeInsets())
         .listRowSeparator(.hidden)
+        .onTapGesture {
+            coordinator.navigateToScreen(.boardingAndDropingView)
+        }
     }
 }
 

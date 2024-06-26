@@ -18,9 +18,9 @@ struct BasicDetailFillingView: View {
     var body: some View {
        
             VStack(alignment: .leading){
+                topBar(title: $screenTitle)
+                    .padding(.top,16)
                 ScrollView{
-                    topBar(title: $screenTitle)
-                        .padding(.top,16)
                     SepratorLine(leading: 0, trailing: 0, topPadding: 5)
                     RoundedRectangle(cornerRadius: 20)
                         .frame(height: 236)
@@ -50,10 +50,11 @@ struct BasicDetailFillingView: View {
                     
                 }.background(Color(hex: "#111111"))
                 SepratorLine(leading: 0, trailing: 0, topPadding: 0)
-                bottomContinueBar(isPickupSelected: $isPickupSelected, isDropSelected: $isDropSelected)
-                
+//                bottomContinueBar(isPickupSelected: $isPickupSelected, isDropSelected: $isDropSelected)
+                bottomBarDetailFilling()
         }
             .background(Color(hex: "#111111"))
+            .navigationBarBackButtonHidden()
     }
     
     @ViewBuilder
@@ -202,6 +203,7 @@ struct contactDetailView: View {
 }
 
 struct travellerDetailView: View {
+    @State var Ispresent = false
     var body: some View {
         HStack{
             RoundedRectangle(cornerRadius: 8)
@@ -213,6 +215,9 @@ struct travellerDetailView: View {
                         Text("+  Add traveller")
                         .foregroundStyle(Color(hex: "#3287FA"))
                         .font(.semiBold(size: 16))
+                        .onTapGesture {
+                            Ispresent.toggle()
+                        }
                     
                 }
             RoundedRectangle(cornerRadius: 8)
@@ -238,5 +243,55 @@ struct travellerDetailView: View {
                 }
             
         }.padding(.horizontal,16)
+            .sheet(isPresented: $Ispresent) {
+                GuestDetailFillingScreen()
+                    .presentationDetents([.height(380)])
+            }
     }
 }
+
+struct bottomBarDetailFilling: View {
+    @EnvironmentObject var coordinator:Coordinator
+    
+    var body: some View {
+        Rectangle()
+            .frame(height: 72)
+            .foregroundStyle(Color(hex: "#111111"))
+            .overlay{
+                HStack{
+                    VStack(alignment: .leading){
+                        Text("Amount")
+                            .font(.system(size: 16))
+                            .foregroundStyle(.white)
+                        Text("number of seats")
+                            .font(.system(size: 12))
+                            .foregroundStyle(Color(hex: "#888888"))
+                    }.padding(.leading,28)
+                    Spacer()
+                    
+                    RoundedRectangle(cornerRadius: 8)
+                        .frame(width: 140,height: 48)
+                        .foregroundStyle(LinearGradient(
+                            stops: [
+                                Gradient.Stop(color: Color(red: 0.94, green: 0.14, blue: 0.24), location: 0.00),
+                                Gradient.Stop(color: Color(red: 0.26, green: 0.14, blue: 0.67), location: 1.00),
+                            ],
+                            startPoint: UnitPoint(x: -0.04, y: 0.5),
+                            endPoint: UnitPoint(x: 2.17, y: 0.5)
+                        ))
+                        .overlay (){
+                            Text("Continue")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundStyle(Color(hex: "#FEFEFE"))
+                        }
+                        .padding(.trailing,16)
+                        .onTapGesture {
+                            coordinator.navigateToScreen(.ticketDetailView)
+                        }
+                    
+                }
+                
+            }  
+    }
+}
+

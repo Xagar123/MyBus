@@ -12,8 +12,9 @@ struct GuestDetailFillingScreen: View {
     @State var age: String = ""
     var body: some View {
         VStack{
-            ScrollView{
+            
                 TopheadingView()
+            ScrollView{
                 SepratorLine(leading: 0, trailing: 0, topPadding: 16)
                 genderView()
                 textFieldView(fullName: $fullName, age: $age)
@@ -25,6 +26,7 @@ struct GuestDetailFillingScreen: View {
                         .foregroundStyle(Color(hex: "#EEEEEE"))
                     Spacer()
                 }.padding(.leading,16)
+                    .padding(.top,25)
             }
             RoundedRectangle(cornerRadius: 8)
                 .frame(height: 48)
@@ -33,6 +35,7 @@ struct GuestDetailFillingScreen: View {
                 .overlay {
                     Text("Add traveller")
                         .font(.semiBold(size: 16))
+                        .foregroundStyle(Color(hex: "#111111"))
                 }
         
         }.background(Color(hex: "#222222"))
@@ -53,6 +56,7 @@ struct TopheadingView: View {
             Spacer()
             Image(systemName: "person")
         }.padding(.horizontal,16)
+            .padding(.top,20)
     }
 }
 
@@ -79,6 +83,7 @@ struct genderView: View {
                 }
             Spacer()
         }.padding(.leading,16)
+            .padding(.top,30)
     }
 }
 
