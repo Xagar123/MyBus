@@ -26,9 +26,9 @@ class PreferredBusPartnerViewModel: ObservableObject {
         case .preferredBusPartner:
             fetchBusPartners()
         case .PreferredDroppingPoint:
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-24")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-26")
         case .PreferredPickupPoint :
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-24")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-26")
         case .none:
             break
             
@@ -118,7 +118,8 @@ class PreferredBusPartnerViewModel: ObservableObject {
                 guard let self = self else { return }
                 guard searchText != "" else {
                     preferredBusPartnerSearchResult = fetchBusPartner
-                    preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint
+//                    preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint
+                    searchInDroppingAndPickup = UniqueLocations
                     return
                 }
                 switch pageType {
