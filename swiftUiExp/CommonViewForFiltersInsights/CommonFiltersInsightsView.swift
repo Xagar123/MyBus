@@ -27,7 +27,6 @@ struct CommonFiltersInsightsView: View {
                     })
                     .padding(20)
                     Text(pageType.rawValue)
-                    //                        .font(.custom("Metropolis", size: 20))
                         .font(.title3)
                         .fontWeight(.bold)
                         .foregroundColor(Color(hex: "#EEEEEE"))
@@ -47,7 +46,7 @@ struct CommonFiltersInsightsView: View {
                 
  
                 
-                FiltersContentView(pageType: pageType, viewModel: viewModel, selectedItems: $selectedItems, servicesSelectedItem: $servicesSelectedItem)
+                FiltersContentView(pageType: pageType, busPartnerViewModel: viewModel, selectedItems: $selectedItems, servicesSelectedItem: $servicesSelectedItem)
                 
                 Color.gray.frame(height: 1 / UIScreen.main.scale)
                 .padding(.bottom, 10)
@@ -81,9 +80,9 @@ struct CommonFiltersInsightsView: View {
             case .preferredBusPartner:
                 print("Selected Bus Partners: \(selectedItems)")
             case .PreferredPickupPoint :
-                print("Selected Pickup Point: \(servicesSelectedItem)")
+                print("Selected Pickup Point: \(viewModel.UniqueLocations.first)")
             case .PreferredDroppingPoint :
-                print("Selected Dropping Point : \(servicesSelectedItem)")
+                print("Selected Dropping Point : \(viewModel.UniqueLocations.first)")
                 
             }
         }
@@ -134,7 +133,7 @@ struct SearchBarView: View {
 // MARK: - FiltersContentView
 struct FiltersContentView: View {
     var pageType: ScreenType
-    @ObservedObject var viewModel: PreferredBusPartnerViewModel
+    @ObservedObject var busPartnerViewModel : PreferredBusPartnerViewModel
     @Binding var selectedItems: [Operators]
     @Binding var servicesSelectedItem: [BusService]
     
@@ -143,17 +142,17 @@ struct FiltersContentView: View {
             switch pageType {
             case .preferredBusPartner:
                
-                    CreateListView(listData: $viewModel.preferredBusPartnerSearchResult, selectedItems: $selectedItems)
+                    CreateListView(listData: $busPartnerViewModel.preferredBusPartnerSearchResult, selectedItems: $selectedItems)
                 
                 
             case .PreferredPickupPoint:
                                   
                  
-                PreferredDroppingAndPickUpPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: viewModel.viewModels, viewModels: viewModel)
+                PreferredDroppingAndPickUpPointView(PreferredPickupPointViewListData: $busPartnerViewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: busPartnerViewModel.viewModels, viewModels: busPartnerViewModel)
                                   
             case .PreferredDroppingPoint:
               
-                PreferredDroppingAndPickUpPointView(PreferredPickupPointViewListData: $viewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: viewModel.viewModels, viewModels: viewModel)
+                PreferredDroppingAndPickUpPointView(PreferredPickupPointViewListData: $busPartnerViewModel.preferredDroppingPickUPPointSearchResult, servicesSelectedItem: $servicesSelectedItem, viewModel: busPartnerViewModel.viewModels, viewModels: busPartnerViewModel)
 
             }
         }
@@ -167,11 +166,10 @@ struct CustomTextFieldStyle: TextFieldStyle {
     
     func _body(configuration: TextField<Self._Label>) -> some View {
         configuration
-            .foregroundColor(textColor) // Set the text color
-            
+            .foregroundColor(textColor)
             .overlay(
                 configuration
-                    .foregroundColor(placeholderColor) // Set the placeholder color
+                    .foregroundColor(placeholderColor)
             )
     }
 }

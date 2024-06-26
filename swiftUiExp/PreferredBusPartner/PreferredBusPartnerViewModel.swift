@@ -18,7 +18,7 @@ class PreferredBusPartnerViewModel: ObservableObject {
     @Published var searchInDroppingAndPickup = [String]()
     @Published var UniqueLocations = [String]()
     var pageType : ScreenType?
-
+    
     
     func fetchData(){
         
@@ -26,9 +26,9 @@ class PreferredBusPartnerViewModel: ObservableObject {
         case .preferredBusPartner:
             fetchBusPartners()
         case .PreferredDroppingPoint:
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-24")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-26")
         case .PreferredPickupPoint :
-            self.availableBusService(source: 3, destination: 5, date: "2024-06-24")
+            self.availableBusService(source: 3, destination: 5, date: "2024-06-26")
         case .none:
             break
             
@@ -36,7 +36,7 @@ class PreferredBusPartnerViewModel: ObservableObject {
     }
     
     func availableBusService(source: Int, destination: Int, date: String) {
-       
+        
         let urlString = "https://api.mynpro.xyz/bus/user/api/abhibus/available-services"
         guard let url = URL(string: urlString) else {
             print("Invalid URL")
@@ -71,18 +71,18 @@ class PreferredBusPartnerViewModel: ObservableObject {
                 print(try? JSONSerialization.jsonObject(with: data))
                 let response = try decoder.decode(BusServiceResponse.self, from: data)
                 let busList = response.services
-             //   print(busList)
+                //   print(busList)
                 //parsePickupLocations(from: busList[9].boardingInfo)
-//              pickupPointList =
+                //              pickupPointList =
                 DispatchQueue.main.async {
                     self.preferredDroppingPickUPPointSearchResult = busList
-//                    self.sortedBusServices = busList
-//                    self.hasFetchedData = true
+                    //                    self.sortedBusServices = busList
+                    //                    self.hasFetchedData = true
                     self.fetchDroppingAndPickUpPoint = busList
                 }
             } catch {
                 print("Error parsing JSON: \(error)")
-
+                
             }
         }
         task.resume()
@@ -118,7 +118,7 @@ class PreferredBusPartnerViewModel: ObservableObject {
                 guard let self = self else { return }
                 guard searchText != "" else {
                     preferredBusPartnerSearchResult = fetchBusPartner
-                    preferredDroppingPickUPPointSearchResult = fetchDroppingAndPickUpPoint
+                    searchInDroppingAndPickup = UniqueLocations
                     return
                 }
                 switch pageType {
@@ -145,7 +145,6 @@ class PreferredBusPartnerViewModel: ObservableObject {
                         return false
                     }
                 }
-                
             }
             .store(in: &cancellables)
     }

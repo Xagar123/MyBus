@@ -26,7 +26,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var sortedBusServices: [BusService] = []
     
     init() {
-            availableBusService(source: 3, destination: 5, date: "2024-06-24")
+            availableBusService(source: 3, destination: 5, date: "2024-06-26")
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
