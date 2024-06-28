@@ -129,6 +129,7 @@
 		03379AEA2C1182D400F10305 /* FilterScreen */ = {
 			isa = PBXGroup;
 			children = (
+				03CCA33B2C088C8F0021875D /* ComboSlider.swift */,
 				03CDEBE92C0487E7003A075D /* FilterFullScreen.swift */,
 			);
 			path = FilterScreen;
@@ -212,7 +213,6 @@
 		03CDEBED2C0487E9003A075D /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				03CCA33B2C088C8F0021875D /* ComboSlider.swift */,
 				03CDEBEE2C0487E9003A075D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
