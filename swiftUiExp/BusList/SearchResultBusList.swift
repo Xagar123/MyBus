@@ -32,12 +32,13 @@ struct SearchResultBusList: View {
                         }
                     }
             }
-            else if delayPassed {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                    .scaleEffect(1.5)
-                    .padding(.top, 120)
-            } else {
+//            else if delayPassed {
+//                ProgressView()
+//                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+//                    .scaleEffect(1.5)
+//                    .padding(.top, 120)
+//            } 
+            else {
                 EmptyBusListView()
                     .padding(.top,120)
             }
@@ -47,9 +48,9 @@ struct SearchResultBusList: View {
         .background(Color(hex:"#111111"))
         .navigationBarHidden(true)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                delayPassed = true
-            }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//                delayPassed = true
+//            }
         }
     }
 }

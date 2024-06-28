@@ -12,12 +12,7 @@ class BusServiceViewModel: ObservableObject {
     @Published var busServices: [BusService] = []
     @Published var filterBusList: [BusService] = []
     @Published var errorMessage: String?
-    @Published var hasFetchedData = false
-<<<<<<< HEAD
     var selectedBusIndex : Int = 1
-=======
-    var selectedBusIndex : Int = 7
->>>>>>> feature/ticket_view
     @Published var pickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     @Published var dropPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
     var copyPickupPointList = [PickupLocation(time: "", location: "", fullAddress: "")]
@@ -31,10 +26,10 @@ class BusServiceViewModel: ObservableObject {
     
     init() {
 <<<<<<< HEAD
-            availableBusService(source: 3, destination: 5, date: "2024-06-18")
+//        availableBusService(source: 3, destination: 5, date: "2024-06-27")
 =======
-            availableBusService(source: 3, destination: 5, date: "2024-06-25")
->>>>>>> feature/ticket_view
+            availableBusService(source: 3, destination: 5, date: "2024-06-28")
+>>>>>>> main
     }
 
     func availableBusService(source: Int, destination: Int, date: String) {
@@ -78,8 +73,8 @@ class BusServiceViewModel: ObservableObject {
 //              pickupPointList =
                 DispatchQueue.main.async {
                     self.busServices = busList
+                    print(busList)
                     self.sortedBusServices = busList
-                    self.hasFetchedData = true
                 }
             } catch {
                 print("Error parsing JSON: \(error)")

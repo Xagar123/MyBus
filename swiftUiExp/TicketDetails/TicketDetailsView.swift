@@ -121,25 +121,55 @@ struct PaymentButtonView: View {
 }
 
 struct PaymentDetailView: View {
+//    @State var ticketHeightCons:CGFloat = 350.0
+    
     var body: some View {
-        VStack {
-            ScrollView {
+
+        if #available(iOS 16.4, *) {
+            List {
                 ZStack {
-                        RoundedRectangle(cornerRadius: 20)
-                            .frame(height: 350)
+                    RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(Color(hex: "#222222"))
-
-                        ExtractedView()
-                      
-
+                    
+                    ExtractedView()
+                    
+                    
                 }
-                .padding(.horizontal)
+                .listRowBackground(Color(hex: "#111111"))
+                
+                
             }
+            .scrollBounceBehavior(.basedOnSize)
+            .background(Color(hex: "#111111"))
+            .listStyle(.plain)
+        } else {
+            List {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .foregroundColor(Color(hex: "#222222"))
+                    
+                    ExtractedView()
+                    
+                    
+                }
+                .listRowBackground(Color(hex: "#111111"))
+                
+                
+            }
+            .background(Color(hex: "#111111"))
+            .listStyle(.plain)
         }
+            
+
     }
 }
 
 struct ExtractedView: View {
+    
+    @State var isDropDownTapped: Bool = false
+//    @Binding var ticketHeightCons: CGFloat
+    
+    
     var body: some View {
         VStack {
             HStack {
@@ -210,6 +240,7 @@ struct ExtractedView: View {
             SepratorLine(leading: 0, trailing: 0, topPadding: 10)
             Spacer()
             
+            //MARK: - Pasenger detail
             VStack {
                 ForEach(0..<2) { index in
                     
@@ -233,6 +264,102 @@ struct ExtractedView: View {
             Spacer()
             SepratorLine(leading: 0, trailing: 0, topPadding: 16)
             
+            //MARK: - Boarding and Droping View
+            if isDropDownTapped {
+            VStack {
+                HStack {
+                    Image("boarding&dropingLocation")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 197)
+                    .padding(.leading)
+                    
+                    Spacer()
+                    VStack {
+                        VStack(alignment:.leading) {
+                            Text("Boarding Point")
+                                .font(.subheadline)
+                                .foregroundColor(Color(hex: "#898A90"))
+                                .padding(.bottom,4)
+                            Text("Bellandur")
+                                .font(.headline)
+                                .foregroundColor(Color(hex: "#EEEEEE"))
+                            Text("Near Kanti Sweet Shop, -Near kanti sweet shop")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .foregroundColor(Color(hex: "#CCCCCC"))
+                        }
+                        .padding(.top,16)
+                        .padding(.bottom,48)
+                        
+                        VStack(alignment:.leading) {
+                            Text("Boarding Point")
+                                .font(.subheadline)
+                                .padding(.bottom,4)
+                                .foregroundColor(Color(hex: "#898A90"))
+                            Text("Koyembedu")
+                                .font(.headline)
+                                .foregroundColor(Color(hex: "#EEEEEE"))
+                            Text("Near Kanti Sweet Shop, -Near kanti sweet shop")
+                                .multilineTextAlignment(.leading)
+                                .lineLimit(nil)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .foregroundColor(Color(hex: "#CCCCCC"))
+                        }
+                    }
+                    .frame(width: 240,alignment: .leading)
+                    Spacer()
+                }
+            }
+            .padding(.top)
+            
+            SepratorLine(leading: 0, trailing: 0, topPadding: 16)
+            
+            //MARK: - Fare breakout
+//            if isDropDownTapped {
+                VStack(alignment: .leading) {
+                    HStack {
+                       Text("Base Fare")
+                        Spacer()
+                        Text("₹2299.00")
+                    }
+                    .padding(.bottom,8)
+                    .padding(.top,8)
+                    HStack {
+                       Text("Service Charge")
+                        Spacer()
+                        Text("₹2299.00")
+                    }
+                    .padding(.bottom,8)
+                    HStack {
+                       Text("Bus Partner GST")
+                        Spacer()
+                        Text("₹2299.00")
+                    }
+                    .padding(.bottom,8)
+                    HStack {
+                       Text("Total Amount")
+                        Spacer()
+                        Text("₹2299.00")
+                    }
+                    .padding(.bottom,8)
+                    
+                    DashedLine()
+                        .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
+                        .foregroundColor(Color(hex: "#333333"))
+                        .frame(height: 1)
+                        .padding(.leading, 0)
+                        .padding(.trailing, 0)
+                        .padding(.top, 0)
+                        
+                   
+                }
+                .foregroundColor(Color(hex: "#EEEEEE"))
+                .padding(.horizontal)
+            }
+            
+            //MARK: - AMOUNT
             VStack {
                 HStack {
                     Text("Total to be paid")
@@ -258,20 +385,32 @@ struct ExtractedView: View {
                        .background(Color(hex: "#222222"))
                        .clipShape(Circle())
                        .frame(maxWidth: .infinity, alignment: .bottom)
-//                       .padding(.bottom, -18)
+                       .padding(.bottom, -18)
                        .overlay(
-                           Image("forward_icon")
+                        Image( isDropDownTapped ? "backward_icon" : "forward_icon")
                                .resizable()
                                .scaledToFit()
                                .frame(width: 24, height: 24,alignment: .center)
-//                               .padding(.bottom,-18)
+                               .padding(.bottom,-18)
                        )
+                       .onTapGesture {
+                           isDropDownTapped.toggle()
 
-               
+                       }
+
             }
           
         }
         
 
+    }
+}
+
+struct DashedLine: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
+        path.addLine(to: CGPoint(x: rect.maxX, y: rect.midY))
+        return path
     }
 }
