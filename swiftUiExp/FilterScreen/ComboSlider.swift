@@ -192,17 +192,22 @@ func convertMaxPriceToPos(price: String, minPrice: String, posOne: CGFloat) -> C
                                         .multilineTextAlignment(.leading)
                                         .padding(.top, 5)
                                     
-                                    TextField("", text: $price)
-                                        .keyboardType(.numberPad)
-                                        .foregroundColor(.white)
-                                        .background(Color.clear)
-//                                        .onChange(of: price) { oldValue, newValue in
-//                                            callBack()
-//                                        }
-                                        .onSubmit {
-                                            callBack()
-                                        }
-                                        .focused($focus)
+                                    if #available(iOS 17.0, *) {
+                                        TextField("", text: $price)
+                                            .keyboardType(.numberPad)
+                                            .foregroundColor(.white)
+                                            .background(Color.clear)
+                                            .onChange(of: price) { oldValue, newValue in
+                                                callBack()
+                                            }
+                                            .onSubmit {
+                                                callBack()
+                                            }
+                                            .focused($focus)
+                                    } else {
+                                        // Fallback on earlier versions
+                                        
+                                    }
                                     
                                 }
                             }.padding(.leading,20)

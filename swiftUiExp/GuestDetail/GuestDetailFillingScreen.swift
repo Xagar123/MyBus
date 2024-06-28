@@ -43,9 +43,9 @@ struct GuestDetailFillingScreen: View {
     }
 }
 
-#Preview {
-    GuestDetailFillingScreen()
-}
+//#Preview {
+//    GuestDetailFillingScreen()
+//}
 
 struct TopheadingView: View {
     var body: some View {

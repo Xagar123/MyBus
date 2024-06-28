@@ -63,6 +63,6 @@ struct SheetContent: View {
 }
 
 // MARK: - Preview
-#Preview {
-    GoingBackBeforePayment()
-}
+//#Preview {
+//    GoingBackBeforePayment()
+//}

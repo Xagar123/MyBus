@@ -29,6 +29,6 @@ struct SeatNotAvailable: View {
 }
 
 // MARK: - Preview
-#Preview {
-    SeatNotAvailable()
-}
+//#Preview {
+//    SeatNotAvailable()
+//}

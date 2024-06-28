@@ -10,7 +10,7 @@ import SwiftUI
 struct CoordinatorView: View {
     
     @StateObject private var coordinator = Coordinator()
-    
+    @StateObject private var busVM = BusServiceViewModel()
     var body: some View {
        
         NavigationStack(path: $coordinator.navigationPath) {
@@ -30,6 +30,7 @@ struct CoordinatorView: View {
                 }
         }
         .environmentObject(coordinator)
+        .environmentObject(busVM)
     }
 }
 

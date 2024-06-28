@@ -144,8 +144,8 @@ struct ScrollViewOffsetPreferenceKey: PreferenceKey {
     }
 }
 
-#Preview {
-    let selectedTab = Binding.constant("Amenities")
-    return BusMoreInfoDetailsView(selectedTab: selectedTab, viewModel: BusMoreInfoViewModel())
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    let selectedTab = Binding.constant("Amenities")
+//    return BusMoreInfoDetailsView(selectedTab: selectedTab, viewModel: BusMoreInfoViewModel())
+//        .preferredColorScheme(.dark)
+//}

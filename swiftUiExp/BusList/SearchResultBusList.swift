@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchResultBusList: View {
     
-    @StateObject var viewModel = BusServiceViewModel()
+    @EnvironmentObject var viewModel: BusServiceViewModel
     @State var sortByTap = false
     @State private var delayPassed = false
     
@@ -22,7 +22,7 @@ struct SearchResultBusList: View {
                     .padding(.top,16)
 
            
-            if viewModel.hasFetchedData {
+            if !viewModel.busServices.isEmpty {
                 BusListView(viewModel: viewModel)
                     .opacity(sortByTap ? 0.3 : 1.0)
                     .allowsHitTesting(!sortByTap)
@@ -43,6 +43,7 @@ struct SearchResultBusList: View {
             }
            
         }
+        .environmentObject(viewModel)
         .background(Color(hex:"#111111"))
         .navigationBarHidden(true)
         .onAppear {
@@ -326,9 +327,11 @@ struct BusListView: View {
                         .frame(maxWidth: .infinity, maxHeight: 0.5)
                     //                .padding(.top,8)
                 }
-//                .onTapGesture {
+                    
+                .onTapGesture {
 //                    coordinator.navigateToScreen(.boardingAndDropingView)
-//                }
+                    print(item)
+                }
                     
                     HStack {
                         

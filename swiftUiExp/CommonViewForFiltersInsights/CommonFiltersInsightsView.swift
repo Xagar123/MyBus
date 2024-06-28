@@ -176,6 +176,6 @@ struct CustomTextFieldStyle: TextFieldStyle {
     }
 }
 // MARK: - Preview
-#Preview {
-    CommonFiltersInsightsView(placeholderText: "prefered location", pageType: .PreferredPickupPoint)
-}
+//#Preview {
+//    CommonFiltersInsightsView(placeholderText: "prefered location", pageType: .PreferredPickupPoint)
+//}

@@ -37,7 +37,7 @@ struct BusMoreInfoMainDetailsView: View {
     }
 }
 
-#Preview {
-    BusMoreInfoMainDetailsView(busInfo: BusInfo(name: "Name", type: "Type", rating: "1.4", reviews: "12"))
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    BusMoreInfoMainDetailsView(busInfo: BusInfo(name: "Name", type: "Type", rating: "1.4", reviews: "12"))
+//        .preferredColorScheme(.dark)
+//}

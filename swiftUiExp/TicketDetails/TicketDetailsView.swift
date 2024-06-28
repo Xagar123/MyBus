@@ -28,9 +28,9 @@ struct TicketDetailsView: View {
     
 }
 
-#Preview {
-    TicketDetailsView()
-}
+//#Preview {
+//    TicketDetailsView()
+//}
 
 struct NavigationHeaderView: View {
     

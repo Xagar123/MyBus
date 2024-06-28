@@ -79,14 +79,14 @@ struct BusMoreInfoRefundPolicyView: View {
     }
 }
 
-#Preview {
-    BusMoreInfoRefundPolicyView(busRefundPolicy: [ BusRefundPolicy(cancellationTime: "Before 09-Aug 20:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 21:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 22:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 23:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 00:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 10:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 12:00", refundAmount: "₹1260", percentage: "(90%)"),
-                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 13:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)")])
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    BusMoreInfoRefundPolicyView(busRefundPolicy: [ BusRefundPolicy(cancellationTime: "Before 09-Aug 20:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 21:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 22:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 23:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 00:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 10:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 12:00", refundAmount: "₹1260", percentage: "(90%)"),
+//                                                   BusRefundPolicy(cancellationTime: "Before 09-Aug 13:00 & 06-Sep 20:00", refundAmount: "₹1260", percentage: "(90%)")])
+//        .preferredColorScheme(.dark)
+//}

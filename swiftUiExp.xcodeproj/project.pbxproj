@@ -129,6 +129,7 @@
 		03379AEA2C1182D400F10305 /* FilterScreen */ = {
 			isa = PBXGroup;
 			children = (
+				03CCA33B2C088C8F0021875D /* ComboSlider.swift */,
 				03CDEBE92C0487E7003A075D /* FilterFullScreen.swift */,
 			);
 			path = FilterScreen;
@@ -184,8 +185,8 @@
 		03CDEBE62C0487E7003A075D /* swiftUiExp */ = {
 			isa = PBXGroup;
 			children = (
-				FA48E46C2C2B560D00CCCE7F /* BusMoreInfo */,
 				03CDEBE72C0487E7003A075D /* swiftUiExpApp.swift */,
+				FA48E46C2C2B560D00CCCE7F /* BusMoreInfo */,
 				FA1FDE262C11B1C300B90FCA /* Navigation */,
 				FA48E4592C2B4E1000CCCE7F /* TabBar */,
 				03CBAE052C2A9BFA00B2D35E /* GuestDetail */,
@@ -212,7 +213,6 @@
 		03CDEBED2C0487E9003A075D /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				03CCA33B2C088C8F0021875D /* ComboSlider.swift */,
 				03CDEBEE2C0487E9003A075D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";

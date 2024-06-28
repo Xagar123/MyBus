@@ -59,9 +59,9 @@ public struct BusHomePageTabBar: View {
     }
 }
 
-#Preview {
-    BusHomePageTabBar()
-}
+//#Preview {
+//    BusHomePageTabBar()
+//}
 
 
 

@@ -34,7 +34,7 @@ struct BusMoreInfoTravelPolicyView: View {
 }
 
 
-#Preview {
-    BusMoreInfoTravelPolicyView(travelPolicy: [BusMoreInfoTravelPolicy(image: "", title: "Do need to buy a ticket for my child?", subTitle: "please purchase a ticket for children above the age of 6")])
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    BusMoreInfoTravelPolicyView(travelPolicy: [BusMoreInfoTravelPolicy(image: "", title: "Do need to buy a ticket for my child?", subTitle: "please purchase a ticket for children above the age of 6")])
+//        .preferredColorScheme(.dark)
+//}

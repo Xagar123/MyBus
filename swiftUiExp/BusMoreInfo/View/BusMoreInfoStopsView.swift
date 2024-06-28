@@ -113,13 +113,13 @@ struct BusMoreInfoStopsRowSwiftUIView: View {
 }
 
 
-#Preview {
-    let dummyBoardingPoints = [
-        BoardingDroppingPoint(time: "20:00", point: "Bellandur"),
-        BoardingDroppingPoint(time: "21:00", point: "Bellandur"),
-        BoardingDroppingPoint(time: "22:00", point: "Bellandur"),
-        BoardingDroppingPoint(time: "23:00", point: "Bellandur")
-    ]
-    return BusMoreInfoStopsView(boardingPoints: BoardingDroppingHeaderPoints(boardingPointTitle: "Boarding Points", droppingPointTitle: "Dropping Points", boardingPoints: dummyBoardingPoints, droppingPoints: dummyBoardingPoints, selectedBoardingPoint: true))
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    let dummyBoardingPoints = [
+//        BoardingDroppingPoint(time: "20:00", point: "Bellandur"),
+//        BoardingDroppingPoint(time: "21:00", point: "Bellandur"),
+//        BoardingDroppingPoint(time: "22:00", point: "Bellandur"),
+//        BoardingDroppingPoint(time: "23:00", point: "Bellandur")
+//    ]
+//    return BusMoreInfoStopsView(boardingPoints: BoardingDroppingHeaderPoints(boardingPointTitle: "Boarding Points", droppingPointTitle: "Dropping Points", boardingPoints: dummyBoardingPoints, droppingPoints: dummyBoardingPoints, selectedBoardingPoint: true))
+//        .preferredColorScheme(.dark)
+//}

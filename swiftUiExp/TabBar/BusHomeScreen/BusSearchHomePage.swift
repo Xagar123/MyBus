@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct BusSearchHomePage: View {
+    @EnvironmentObject var busvm: BusServiceViewModel
     var body: some View {
         ZStack{
             Color.black
@@ -33,6 +34,10 @@ struct BusSearchHomePage: View {
             .padding(.top, 40)
         }
         .background(Color.black)
+        .onAppear(perform: {
+            busvm.busServices = []
+            busvm.sortedBusServices = []
+        })
     }
 }
 
@@ -65,9 +70,10 @@ struct HomePageSearchCard: View {
 struct SearchButton: View {
     
     @EnvironmentObject var coordinator: Coordinator
-    
+    @EnvironmentObject var busvm: BusServiceViewModel
     var body: some View {
         Button(action: {
+            busvm.availableBusService(source: 3, destination: 5, date: "2024-06-27")
             coordinator.navigateToScreen(.SearchResultBusList)
         }) {
             Text("Search")

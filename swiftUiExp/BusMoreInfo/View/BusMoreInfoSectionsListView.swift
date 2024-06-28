@@ -32,8 +32,8 @@ struct BusMoreInfoSectionsListView: View {
     }
 }
 
-#Preview {
-    let selectedTab = Binding.constant("Amenities")
-    return BusMoreInfoSectionsListView(busSectionsList: [BusSectionList(title: "", imageURL: "")], selectedTab: selectedTab)
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    let selectedTab = Binding.constant("Amenities")
+//    return BusMoreInfoSectionsListView(busSectionsList: [BusSectionList(title: "", imageURL: "")], selectedTab: selectedTab)
+//        .preferredColorScheme(.dark)
+//}

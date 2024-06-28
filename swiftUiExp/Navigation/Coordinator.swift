@@ -100,7 +100,7 @@ class Coordinator: ObservableObject {
         case .SearchResultBusList:
             SearchResultBusList()
         case .boardingAndDropingView:
-            BoardingAndDroppingListView(viewModel: BusServiceViewModel())
+            BoardingAndDroppingListView()
         case .busPartner:
             CommonFiltersInsightsView(preferredBusPartner: [], placeholderText: "Search destination", pageType: .preferredBusPartner)
         case .passengerBasicDetail:

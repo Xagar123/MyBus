@@ -32,7 +32,7 @@ public struct BusMoreInfoView: View {
     }
 }
 
-#Preview {
-    BusMoreInfoView()
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    BusMoreInfoView()
+//        .preferredColorScheme(.dark)
+//}

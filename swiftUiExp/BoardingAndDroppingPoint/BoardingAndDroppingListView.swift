@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BoardingAndDroppingListView: View {
-    @ObservedObject var viewModel : BusServiceViewModel
+    @EnvironmentObject var viewModel : BusServiceViewModel
     @State var textFieldText: String = ""
     @State var isPickupSelected: Bool = false
     @State var isDropSelected: Bool = false
@@ -28,9 +28,9 @@ struct BoardingAndDroppingListView: View {
     }
 }
 
-#Preview {
-    BoardingAndDroppingListView(viewModel: BusServiceViewModel())
-}
+//#Preview {
+//    BoardingAndDroppingListView(viewModel: BusServiceViewModel())
+//}
 
 struct pickupDropSlide: View {
     @Binding var isPickupSelected: Bool
@@ -230,16 +230,13 @@ struct pickupDropList: View {
                 .listRowBackground(Color(hex: "#111111"))
         }.listStyle(.plain)
             .onAppear(perform: {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     viewModel.pickupPointList =  parsePickupLocations(from: viewModel.busServices.count > 0 ? viewModel.busServices[viewModel.selectedBusIndex].boardingInfo : [String]())
                     viewModel.copyPickupPointList = viewModel.pickupPointList
-                    print("=======")
-                   // print(viewModel.pickupPointList)
+                 
                     viewModel.dropPointList =  parseDropLocation(from: viewModel.busServices.count > 0 ? viewModel.busServices[viewModel.selectedBusIndex].droppingInfo : [String]())
                     viewModel.copyDropPointList = viewModel.dropPointList
-                    print("=======")
                     print(viewModel.dropPointList)
-                }
+              
             })
     }
 }

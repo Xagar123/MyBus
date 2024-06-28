@@ -33,7 +33,7 @@ struct BusMoreInfoAmenitiesView: View {
 }
 
 
-#Preview {
-    BusMoreInfoAmenitiesView(amenities: [BusAmenity(imageName: "", title: "")])
-        .preferredColorScheme(.dark)
-}
+//#Preview {
+//    BusMoreInfoAmenitiesView(amenities: [BusAmenity(imageName: "", title: "")])
+//        .preferredColorScheme(.dark)
+//}
