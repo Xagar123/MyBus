@@ -73,7 +73,7 @@ struct SearchButton: View {
     @EnvironmentObject var busvm: BusServiceViewModel
     var body: some View {
         Button(action: {
-            busvm.availableBusService(source: 3, destination: 5, date: "2024-06-27")
+            busvm.availableBusService(source: 3, destination: 5, date: "2024-06-28")
             coordinator.navigateToScreen(.SearchResultBusList)
         }) {
             Text("Search")
